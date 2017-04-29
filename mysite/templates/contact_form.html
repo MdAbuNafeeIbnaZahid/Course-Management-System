@@ -1,0 +1,34 @@
+# contact_form.html
+
+<html>
+
+<head>
+
+    <title> Contact us </title>
+
+</head>
+
+<body>
+
+    <h1> Contact us through mail </h1>
+
+    {% if form.errors %}
+        <p> Pleasr correct the error </p>
+    {% endif %}
+
+    <form action="" method="POST">
+
+        <table>
+
+            {{ form.as_table }}
+
+        </table>
+
+        {% csrf_token %}
+
+        <input type="submit" value="submit">
+    </form>
+
+</body>
+
+</html>
