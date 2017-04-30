@@ -56,8 +56,10 @@ class Class_of_course(models.Model):
         (JULY, 'July')
     )
     month = models.CharField(max_length=200, choices=SESSION_MONTH, null=True)
-    year = models.IntegerField(validators=[MinValueValidator(1990),
-                                           MaxValueValidator(2020)])
+    year = models.IntegerField(validators=[MinValueValidator(1990), MaxValueValidator(2020)])
     course_of_class = models.ForeignKey(Course)
 
+
+
+########  I am skipping Department head log table. I think it is unnecessary.
 
