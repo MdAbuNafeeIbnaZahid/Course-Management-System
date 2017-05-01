@@ -118,5 +118,25 @@ class Enrolment(models.Model):
 
 
 
+######  following tables are for vote
+class Question_of_vote(models.Model):
+    question = models.CharField(max_length=500)
+    respodent_type = models.CharField(max_length=400,  null=True)
+
+
+class Option_of_vote(models.Model):
+    question = models.ForeignKey( Question_of_vote )
+    option = models.CharField(max_length=500, null=True)
+
+
+class Response_of_vote(models.Model):
+    question = models.ForeignKey( Question_of_vote )
+    option = models.ForeignKey( Option_of_vote )
+    teacher = models.ForeignKey( Teacher, null=True )
+    student = models.ForeignKey( Student, null=True )
+
+
+    class Meta:
+        unique_together = ( ('question', 'teacher', 'student'), )
 
 
