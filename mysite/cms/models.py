@@ -62,4 +62,10 @@ class Class_of_course(models.Model):
 
 
 ########  I am skipping Department head log table. I think it is unnecessary.
+class enrolment(models.Model):
+    student_enrolled = models.ForeignKey( Student )
+    class_enrolled_in = models.ForeignKey( Class_of_course )
 
+
+    class Meta:
+        unique_together = ('student_enrolled', 'class_enrolled_in')
