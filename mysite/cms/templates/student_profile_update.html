@@ -1,0 +1,16 @@
+<h1> Student profile update </h1>
+
+<br>
+
+<form method="post" action="">
+
+    {% csrf_token %}
+    <table>
+
+        {{ student_profile_form }}
+
+    </table>
+
+    <input type="submit" value="Submit form"/>
+
+</form>

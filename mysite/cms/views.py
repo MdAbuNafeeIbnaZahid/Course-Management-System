@@ -16,6 +16,7 @@ from django.core.mail import send_mail
 
 from cms.models import Teacher, Student
 from cms.templates import includes
+from cms.forms import Student_profile_form
 
 
 # Create your views here.
@@ -77,6 +78,12 @@ def handle_log_out(request):
 
 def change_profile_student(request):
     username = request.session.get('username', '')
-    student = Student.objects.filter(username=username)
+    student = Student.objects.get(username=username)
+    student_profile_form = Student_profile_form(request.POST ,instance=student)
+    if student_profile_form.is_valid():
+        student_profile_form.save()
+    return render(request, 'student_profile_update.html', {'student_profile_form' : student_profile_form})
+
+
 
 
