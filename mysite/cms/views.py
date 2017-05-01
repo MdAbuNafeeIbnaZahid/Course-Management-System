@@ -15,6 +15,7 @@ from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
 from cms.models import Teacher, Student
+from cms.templates import includes
 
 
 # Create your views here.
@@ -29,14 +30,26 @@ def handle_log_in(request):
     # print(usertype)
 
     if ( usertype == "teacher" ):
-        teacher = Teacher.objects.filter(username=username)
+        teacher = Teacher.objects.filter(username=username, password=password)
         print(teacher)
-        pass
+        if teacher:
+            print("teacher found")
+            # return render(request, 'teacher_navigation.html')
+            request.session['username'] = username
+            request.session['usertype'] = usertype
+        else:
+            print("Teacher not found")
 
     elif ( usertype == 'student' ):
-        student = Student.objects.filter(username=username)
+        student = Student.objects.filter(username=username, password=password)
         print(student)
-        pass
+        if student:
+            print("student found")
+            request.session['username'] = username
+            request.session['usertype'] = usertype
+            # return render(request, 'student_navigation.html')
+        else:
+            print("student not found")
 
     return render(request, 'login_page.html')
 
