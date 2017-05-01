@@ -26,12 +26,32 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
+
+    BARISHAL = 'BARISHAL'
+    CHITTAGONG = 'CHITTAGONG'
+    DHAKA = 'DHAKA'
+    MYMENSINGH = 'MYMENSINGH'
+    KHULNA = 'KHULNA'
+    RAJSHAHI = 'RAJSHAHI'
+    RANGPUR = 'RANGPUR'
+    SYLHET = 'SYLHET'
+    DIVISION = (
+        (BARISHAL, 'Barishal'),
+        (CHITTAGONG, 'Chittagong'),
+        (DHAKA, 'Dhaka'),
+        (MYMENSINGH, 'Mymensingh'),
+        (KHULNA, 'Khulna'),
+        (RAJSHAHI, 'Rajshahi'),
+        (RANGPUR, 'Rangpur'),
+        (SYLHET, 'Sylhet')
+    )
     username = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     studentId = models.CharField(max_length=200, unique=True)
     first_name = models.CharField(max_length=200, default="")
     last_name = models.CharField(max_length=200, default="")
     address = models.CharField(max_length=200, default="")
+    division = models.CharField(max_length=200, null=True, choices=DIVISION )
     phone_nom = models.IntegerField(null=True)
     email_address = models.EmailField(null=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
@@ -39,7 +59,10 @@ class Student(models.Model):
                                            MaxValueValidator(5)])
     term = models.IntegerField(null=True, validators=[MinValueValidator(1),
                                            MaxValueValidator(2)])
-    classes_enrolled_in = models.ManyToManyField( 'Class_of_course' )
+    classes_enrolled_in = models.ManyToManyField( 'Class_of_course', through='Enrolment' )
+    dues = models.IntegerField( default=0 )
+
+
 
 
 class Course(models.Model):
@@ -66,7 +89,34 @@ class Class_of_course(models.Model):
 ########  I am skipping Department head log table. I think it is unnecessary.
 
 
-#### As django don't need any relation table...  I am skipping following tables
-# Enrolment
+#### Django doesn't need any relation table unless there are some attributes of relation...  I am skipping following tables
 # Class_teacher
+#
+class Enrolment(models.Model):
+    student = models.ForeignKey(Student)
+    class_of_course = models.ForeignKey(Class_of_course)
+
+    ct1_marks = models.IntegerField(default=0)
+    ct2_marks = models.IntegerField(default=0)
+    ct3_marks = models.IntegerField(default=0)
+    ct4_marks = models.IntegerField(default=0)
+    ct5_marks = models.IntegerField(default=0)
+    ct6_marks = models.IntegerField(default=0)
+    assignment1_marks = models.IntegerField(default=0)
+    assignment2_marks = models.IntegerField(default=0)
+    assignment3_marks = models.IntegerField(default=0)
+    attendance_marks = models.IntegerField(default=0)
+    term_final_marks = models.IntegerField(default=0)
+    viva1_marks = models.IntegerField(default=0)
+    viva2_marks = models.IntegerField(default=0)
+    experiment_marks = models.IntegerField(default=0)
+
+    other = models.IntegerField(default=0)
+
+    final_out_of_hundred = models.IntegerField(default=0)
+
+
+
+
+
 
