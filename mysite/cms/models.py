@@ -7,22 +7,39 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Department(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    head = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True)
+    head = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Teacher(models.Model):
+    PROFESSOR = 'PROFESSOR'
+    ASSOCIATE_PROF = 'ASSOCIATE_PROF'
+    ASSISTANT_PROF = 'ASSISTANT_PROF'
+    LECTURER = 'LECTURER'
+
+    RANKS = (
+        (PROFESSOR, 'Professor'),
+        (ASSOCIATE_PROF, 'Associate Professor'),
+        (ASSISTANT_PROF, 'Assistant Professor'),
+        (LECTURER, 'Lecturer')
+    )
+
     username = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
-    first_name = models.CharField(max_length=200, default="")
-    last_name = models.CharField(max_length=200, default="")
-    address = models.CharField(max_length=200, default="")
-    phone_nom = models.IntegerField(null=True)
-    email_address = models.EmailField(null=True)
-    joinDate = models.DateField(null=True)
+    first_name = models.CharField(max_length=200, default="", blank=True)
+    last_name = models.CharField(max_length=200, default="", blank=True)
+    address = models.CharField(max_length=200, default="", blank=True)
+    phone_nom = models.IntegerField(null=True, blank=True)
+    email_address = models.EmailField(null=True, blank=True)
+    joinDate = models.DateField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
+    rank = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
 
 
 class Student(models.Model):
@@ -48,12 +65,12 @@ class Student(models.Model):
     username = models.CharField(max_length=200, unique=True)
     password = models.CharField(max_length=200)
     studentId = models.CharField(max_length=200, unique=True)
-    first_name = models.CharField(max_length=200, default="")
-    last_name = models.CharField(max_length=200, default="")
-    address = models.CharField(max_length=200, default="")
-    division = models.CharField(max_length=200, null=True, choices=DIVISION )
-    phone_nom = models.IntegerField(null=True)
-    email_address = models.EmailField(null=True)
+    first_name = models.CharField(max_length=200, default="", blank=True)
+    last_name = models.CharField(max_length=200, default="", blank=True)
+    address = models.CharField(max_length=200, default="", blank=True)
+    division = models.CharField(max_length=200, null=True, choices=DIVISION, blank=True )
+    phone_nom = models.IntegerField(null=True, blank=True)
+    email_address = models.EmailField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     level = models.IntegerField(null=True, validators=[MinValueValidator(1),
                                            MaxValueValidator(5)])

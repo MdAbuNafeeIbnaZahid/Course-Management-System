@@ -32,4 +32,9 @@ urlpatterns = [
     url(r'^search/$', views.search, name='views.search'),
     #url(r'.', default_view, name='default_view'),
     url(r'^contact/$', contact, name='contact'),
+
+
+
+    ########### From here starts our cms app's url
+    
 ]
