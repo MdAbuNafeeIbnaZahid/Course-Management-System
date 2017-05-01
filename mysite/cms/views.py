@@ -24,15 +24,18 @@ def handle_log_in(request):
     password = request.GET.get('password', '')
     usertype = request.GET.get('usertype', '')
 
-    print(username)
-    print(password)
-    print(usertype)
+    # print(username)
+    # print(password)
+    # print(usertype)
 
     if ( usertype == "teacher" ):
-        #Teacher =
+        teacher = Teacher.objects.filter(username=username)
+        print(teacher)
         pass
 
     elif ( usertype == 'student' ):
+        student = Student.objects.filter(username=username)
+        print(student)
         pass
 
     return render(request, 'login_page.html')
