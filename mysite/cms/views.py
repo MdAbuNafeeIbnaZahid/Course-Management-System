@@ -20,7 +20,20 @@ from cms.templates import includes
 
 # Create your views here.
 
-def handle_log_in(request):
+def handle_log_in(request, logged_out = False ):
+    if logged_out:
+        return render(request, 'login_page.html', {'error': False})
+
+    username = request.session.get('username', '')
+    usertype = request.session.get('usertype', '')
+    if (username != '' and usertype != ''):
+        if ( usertype == 'teacher' ):
+            return render(request, 'teacher_homepage.html')
+
+        elif (usertype == 'student'):
+            return render(request, 'student_homepage.html')
+
+
     username = request.GET.get('username', '')
     password = request.GET.get('password', '')
     usertype = request.GET.get('usertype', '')
@@ -58,7 +71,12 @@ def handle_log_in(request):
 def handle_log_out(request):
     request.session['username'] = ''
     request.session['usertype'] = ''
-    return redirect( handle_log_in, logged_out = True )
+    return redirect( handle_log_in )
     # return render(request, 'login_page.html', {'error' : False} )
+
+
+def change_profile_student(request):
+    username = request.session.get('username', '')
+    
 
 
