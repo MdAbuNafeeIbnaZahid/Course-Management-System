@@ -39,6 +39,7 @@ class Student(models.Model):
                                            MaxValueValidator(5)])
     term = models.IntegerField(null=True, validators=[MinValueValidator(1),
                                            MaxValueValidator(2)])
+    classes_enrolled_in = models.ManyToManyField( 'Class_of_course' )
 
 
 class Course(models.Model):
@@ -58,14 +59,14 @@ class Class_of_course(models.Model):
     month = models.CharField(max_length=200, choices=SESSION_MONTH, null=True)
     year = models.IntegerField(validators=[MinValueValidator(1990), MaxValueValidator(2020)])
     course_of_class = models.ForeignKey(Course)
+    class_teacher = models.ManyToManyField( Teacher )
 
 
 
 ########  I am skipping Department head log table. I think it is unnecessary.
-class enrolment(models.Model):
-    student_enrolled = models.ForeignKey( Student )
-    class_enrolled_in = models.ForeignKey( Class_of_course )
 
 
-    class Meta:
-        unique_together = ('student_enrolled', 'class_enrolled_in')
+#### As django don't need any relation table...  I am skipping following tables
+# Enrolment
+# Class_teacher
+
