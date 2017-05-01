@@ -19,7 +19,7 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
     display_meta, contact
 
 # from books import views
-from cms.views import handle_log_in
+from cms.views import handle_log_in, handle_log_out
 
 urlpatterns = [
 
@@ -38,5 +38,6 @@ urlpatterns = [
 
 
     ########### From here starts our cms app's url
-    url(r'^login/$', handle_log_in, name='contact')
+    url(r'^login/$', handle_log_in, name='handle_log_in'),
+    url(r'^logout/$', handle_log_out, name='handle_log_out'),
 ]

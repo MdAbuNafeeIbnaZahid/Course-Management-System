@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.http import HttpResponse, Http404
 import datetime
@@ -34,9 +34,9 @@ def handle_log_in(request):
         print(teacher)
         if teacher:
             print("teacher found")
-            # return render(request, 'teacher_navigation.html')
             request.session['username'] = username
             request.session['usertype'] = usertype
+            return render(request, 'teacher_homepage.html')
         else:
             print("Teacher not found")
 
@@ -47,10 +47,18 @@ def handle_log_in(request):
             print("student found")
             request.session['username'] = username
             request.session['usertype'] = usertype
-            # return render(request, 'student_navigation.html')
+            return render(request, 'student_homepage.html')
         else:
             print("student not found")
 
-    return render(request, 'login_page.html')
+    return render(request, 'login_page.html', {'error' : True} )
+
+
+
+def handle_log_out(request):
+    request.session['username'] = ''
+    request.session['usertype'] = ''
+    return redirect( handle_log_in, logged_out = True )
+    # return render(request, 'login_page.html', {'error' : False} )
 
 
