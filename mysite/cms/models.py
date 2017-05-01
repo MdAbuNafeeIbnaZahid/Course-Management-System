@@ -27,7 +27,7 @@ class Teacher(models.Model):
     )
 
     username = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200)
+    password = models.CharField(max_length=200, blank=True)
     first_name = models.CharField(max_length=200, default="", blank=True)
     last_name = models.CharField(max_length=200, default="", blank=True)
     address = models.CharField(max_length=200, default="", blank=True)
@@ -63,7 +63,7 @@ class Student(models.Model):
         (SYLHET, 'Sylhet')
     )
     username = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200)
+    password = models.CharField(max_length=200, blank=True)
     studentId = models.CharField(max_length=200, unique=True)
     first_name = models.CharField(max_length=200, default="", blank=True)
     last_name = models.CharField(max_length=200, default="", blank=True)
