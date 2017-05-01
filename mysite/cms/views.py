@@ -77,6 +77,6 @@ def handle_log_out(request):
 
 def change_profile_student(request):
     username = request.session.get('username', '')
-    
+    student = Student.objects.filter(username=username)
 
 

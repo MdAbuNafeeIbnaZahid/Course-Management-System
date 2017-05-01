@@ -31,7 +31,7 @@ class Teacher(models.Model):
     first_name = models.CharField(max_length=200, default="", blank=True)
     last_name = models.CharField(max_length=200, default="", blank=True)
     address = models.CharField(max_length=200, default="", blank=True)
-    phone_nom = models.IntegerField(null=True, blank=True)
+    phone_num = models.CharField(max_length=20, blank=True)
     email_address = models.EmailField(null=True, blank=True)
     joinDate = models.DateField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
@@ -69,7 +69,7 @@ class Student(models.Model):
     last_name = models.CharField(max_length=200, default="", blank=True)
     address = models.CharField(max_length=200, default="", blank=True)
     division = models.CharField(max_length=200, null=True, choices=DIVISION, blank=True )
-    phone_nom = models.IntegerField(null=True, blank=True)
+    phone_num = models.CharField(max_length=20, blank=True)
     email_address = models.EmailField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     level = models.IntegerField(null=True, validators=[MinValueValidator(1),
