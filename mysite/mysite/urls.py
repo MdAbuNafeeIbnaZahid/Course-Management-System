@@ -17,7 +17,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from mysite.views import hello, my_homepage_view, default_view, current_datetime, hours_ahead, ua_display_good2, \
     display_meta, contact
-from books import views
+
+# from books import views
+from cms.views import handle_log_in
 
 urlpatterns = [
 
@@ -29,12 +31,12 @@ urlpatterns = [
     url(r'^ua_display/$', ua_display_good2, name='ua_display_good2'),
     url(r'^display_meta/$', display_meta, name='display_meta'),
     # url(r'^search-form/$', views.search_form, name='views.search_form'),
-    url(r'^search/$', views.search, name='views.search'),
+    # url(r'^search/$', views.search, name='views.search'),
     #url(r'.', default_view, name='default_view'),
     url(r'^contact/$', contact, name='contact'),
 
 
 
     ########### From here starts our cms app's url
-    
+    url(r'^login/$', handle_log_in, name='contact')
 ]
