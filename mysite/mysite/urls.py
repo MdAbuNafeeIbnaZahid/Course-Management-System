@@ -19,7 +19,7 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
     display_meta, contact
 
 # from books import views
-from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password
+from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password, handle_add_department
 
 urlpatterns = [
 
@@ -42,6 +42,7 @@ urlpatterns = [
     url(r'^logout/$', handle_log_out, name='handle_log_out'),
     url(r'^change-password', handle_change_password, name='handle_change_password'),
     url(r'^update-profile', handle_update_profile, name='handle_update_profile'),
+    url(r'^add-new-department', handle_add_department,name='handle_add_department')
 
 
 

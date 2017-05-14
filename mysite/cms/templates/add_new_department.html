@@ -1,0 +1,43 @@
+{% include "includes/admin_navigation.html" %}
+
+
+
+<html>
+
+<h1> Add new department </h1>
+
+{% if error %}
+    <br>
+    {{   error }}
+    <br >
+    <br>
+{% endif %}
+
+{% if success_message %}
+    <br>
+    {{ success_message }}
+    <br>
+{% endif %}
+
+
+<body>
+
+    {% for dept in dept_list %}
+        <br>
+        {{  dept }}
+        <br>
+    {% endfor %}
+
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        Department name <input type="text" name="department_name">
+        <br>
+
+        <input type="submit" value="Add">
+
+    </form>
+
+</body>
+
+</html>

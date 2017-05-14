@@ -20,7 +20,7 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User
+from cms.models import Teacher, Student, User, Department
 from cms.templates import includes
 from cms.forms import Student_profile_form
 
@@ -110,6 +110,28 @@ def change_profile_student(request):
     if student_profile_form.is_valid():
         student_profile_form.save()
     return render(request, 'student_profile_update.html', {'student_profile_form' : student_profile_form})
+
+
+def handle_add_department(request):
+    user_type = request.session.get('user_type', None)
+    if user_type == 'ADMIN' : # user is admin
+
+        dept_list = Department.objects.all()
+
+        if request.method == 'POST' : # clicked add button
+            department_name = request.POST.get( 'department_name', None )
+            same_name_dept_cnt = Department.objects.all().filter( name=department_name ).count()
+            if ( same_name_dept_cnt > 0):
+                return render(request, 'add_new_department.html', {'error' : 'Dept already exists', 'dept_list' : dept_list} )
+            else:
+                dept = Department(name=department_name)
+                dept.save()
+                return render(request, 'add_new_department.html', {'dept_list': dept_list, 'success_message' : 'dept added successfully'} )
+
+        else: # admin just loaded the page
+            return render(request, 'add_new_department.html', { 'dept_list' : dept_list } )
+    else: # Non admin
+        return render(request, 'login_page.html', {'error': None})
 
 
 

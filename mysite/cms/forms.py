@@ -9,3 +9,6 @@ class Student_profile_form(forms.ModelForm):
             'password' : forms.PasswordInput(),
             # 'email_address' : forms.EmailField(),
         }
+
+
+
