@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import ModelForm, PasswordInput
 from .models import Department, Teacher, Student, Course, Class_of_course, \
-    Enrolment, Question_of_vote, Option_of_vote, Response_of_vote
+    Enrolment, Question_of_vote, Option_of_vote, Response_of_vote, User
 
 
 class StudentAdminForm(ModelForm):
@@ -31,6 +31,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
 # Register your models here.
 
+admin.site.register( User )
 admin.site.register( Department )
 admin.site.register( Teacher, TeacherAdmin )
 admin.site.register( Student, StudentAdmin )

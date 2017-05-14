@@ -19,7 +19,7 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
     display_meta, contact
 
 # from books import views
-from cms.views import handle_log_in, handle_log_out, change_profile_student
+from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password
 
 urlpatterns = [
 
@@ -40,5 +40,10 @@ urlpatterns = [
     ########### From here starts our cms app's url
     url(r'^login/$', handle_log_in, name='handle_log_in'),
     url(r'^logout/$', handle_log_out, name='handle_log_out'),
-    url(r'^student_profile_update/$', change_profile_student, name='change_profile_student'),
+    url(r'^change-password', handle_change_password, name='handle_change_password'),
+    url(r'^update-profile', handle_update_profile, name='handle_update_profile'),
+
+
+
+    # url(r'^student_profile_update/$', change_profile_student, name='change_profile_student'),
 ]

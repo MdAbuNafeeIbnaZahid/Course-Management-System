@@ -8,13 +8,21 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class User(models.Model):
     username = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200, blank=True)
+    password = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200, default="", blank=True)
     last_name = models.CharField(max_length=200, default="", blank=True)
     address = models.CharField(max_length=200, default="", blank=True)
     phone_num = models.CharField(max_length=20, blank=True)
     email_address = models.EmailField(null=True, blank=True)
+    USER_TYPE = (
+        ( 'TEACHER', 'Teacher' ),
+        ( 'STUDENT', 'Student' ),
+        ( 'ADMIN', 'Admin' )
+    )
+    user_type = models.CharField(max_length=200, choices=USER_TYPE)
 
+    def __str__(self):
+        return "user : " + self.username + ", user type : " + self.user_type
 
 
 class Department(models.Model):
@@ -40,7 +48,6 @@ class Teacher(User):
     joinDate = models.DateField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     rank = models.CharField(max_length=200, blank=True)
-
     def __str__(self):
         return self.first_name + " " + self.last_name
 
