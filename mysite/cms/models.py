@@ -5,6 +5,18 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 
+
+class User(models.Model):
+    username = models.CharField(max_length=200, unique=True)
+    password = models.CharField(max_length=200, blank=True)
+    first_name = models.CharField(max_length=200, default="", blank=True)
+    last_name = models.CharField(max_length=200, default="", blank=True)
+    address = models.CharField(max_length=200, default="", blank=True)
+    phone_num = models.CharField(max_length=20, blank=True)
+    email_address = models.EmailField(null=True, blank=True)
+
+
+
 class Department(models.Model):
     name = models.CharField(max_length=30, unique=True)
     head = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True, blank=True)
@@ -13,7 +25,7 @@ class Department(models.Model):
         return self.name
 
 
-class Teacher(models.Model):
+class Teacher(User):
     PROFESSOR = 'PROFESSOR'
     ASSOCIATE_PROF = 'ASSOCIATE_PROF'
     ASSISTANT_PROF = 'ASSISTANT_PROF'
@@ -25,14 +37,6 @@ class Teacher(models.Model):
         (ASSISTANT_PROF, 'Assistant Professor'),
         (LECTURER, 'Lecturer')
     )
-
-    username = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200, blank=True)
-    first_name = models.CharField(max_length=200, default="", blank=True)
-    last_name = models.CharField(max_length=200, default="", blank=True)
-    address = models.CharField(max_length=200, default="", blank=True)
-    phone_num = models.CharField(max_length=20, blank=True)
-    email_address = models.EmailField(null=True, blank=True)
     joinDate = models.DateField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     rank = models.CharField(max_length=200, blank=True)
@@ -42,8 +46,7 @@ class Teacher(models.Model):
 
 
 
-class Student(models.Model):
-
+class Student(User):
     BARISHAL = 'BARISHAL'
     CHITTAGONG = 'CHITTAGONG'
     DHAKA = 'DHAKA'
@@ -62,20 +65,13 @@ class Student(models.Model):
         (RANGPUR, 'Rangpur'),
         (SYLHET, 'Sylhet')
     )
-    username = models.CharField(max_length=200, unique=True)
-    password = models.CharField(max_length=200, blank=True)
     studentId = models.CharField(max_length=200, unique=True)
-    first_name = models.CharField(max_length=200, default="", blank=True)
-    last_name = models.CharField(max_length=200, default="", blank=True)
-    address = models.CharField(max_length=200, default="", blank=True)
     division = models.CharField(max_length=200, null=True, choices=DIVISION, blank=True )
-    phone_num = models.CharField(max_length=20, blank=True)
-    email_address = models.EmailField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
     level = models.IntegerField(null=True, validators=[MinValueValidator(1),
                                            MaxValueValidator(5)])
     term = models.IntegerField(null=True, validators=[MinValueValidator(1),
-                                           MaxValueValidator(2)])
+                                          MaxValueValidator(2)])
     classes_enrolled_in = models.ManyToManyField( 'Class_of_course', through='Enrolment' )
     dues = models.IntegerField( default=0 )
 
