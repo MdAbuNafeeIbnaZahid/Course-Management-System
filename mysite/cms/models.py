@@ -86,10 +86,17 @@ class Student(User):
 
 
 class Course(models.Model):
-    course_num = models.CharField(max_length=200, null=True)
+    course_num = models.CharField(max_length=200, null=True, unique=True)
     course_name = models.CharField(max_length=200, null=True)
-    credi_hour = models.IntegerField(null=True)
+    credit_hour = models.IntegerField(null=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.course_num + ' - ' + self.course_name + ', \n' + 'credit hr = ' + str(self.credit_hour) + ', \n'  \
+                + ' dept = ' + self.dept.name
+
+
+
 
 
 class Class_of_course(models.Model):

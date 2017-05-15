@@ -1,0 +1,36 @@
+
+{% include 'includes/admin_navigation.html' %}
+
+<h1> Add new course </h1>
+
+<br>
+{% if error %}
+    {{ error }}
+{% endif %}
+<br>
+
+<br>
+{% if message %}
+    {{ message }}
+{% endif %}
+<br>
+
+<br>
+    {% for course in all_courses_ordered_by_dept %}
+
+        <br>
+        {{ course }}
+        <br>
+
+    {% endfor %}
+<br>
+
+
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+{{ add_new_course_form }}
+</table>
+<input type="submit" value="Add new course"/>
+</form>

@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Student, User
+from cms.models import Student, User, Course
 
 class Student_profile_form(forms.ModelForm):
     class Meta:
@@ -37,3 +37,7 @@ class add_new_student_form( forms.ModelForm ) :
     #     print( "username = " + username )
 
 
+class add_new_course_form( forms.ModelForm ) :
+    class Meta:
+        model = Course
+        fields = '__all__'

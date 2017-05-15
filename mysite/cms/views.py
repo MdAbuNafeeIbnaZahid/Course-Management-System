@@ -20,9 +20,9 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User, Department
+from cms.models import Teacher, Student, User, Department, Course
 from cms.templates import includes
-from cms.forms import Student_profile_form, add_new_student_form
+from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form
 
 
 
@@ -199,6 +199,94 @@ def handle_add_new_student(request):
             form = add_new_student_form()
             return render(request, 'add_new_student.html',
                           { 'add_new_student_form' : form } )
+
+
+
+def handle_add_new_course(request):
+    user_type = request.session.get('user_type', None)
+    if (user_type != 'ADMIN'):  # Non admin
+        print('User is not admin')
+        return render(request, 'includes/user_navigation.html', {'error': None})
+
+    # user is admin
+    print('user is admin')
+
+    # fetch list of all courses
+    all_courses_ordered_by_dept = Course.objects.all().order_by( 'dept' )
+    print( 'fetched all courses ordered by dept' )
+
+
+    print( 'request.method = ' + request.method  )
+
+    if (request.method != 'POST')  : # user just loaded the page
+
+        print( 'user just loaded the page' )
+
+        form = add_new_course_form()
+
+        print('created an empty form for adding new course')
+
+        return render(request, 'add_new_course.html', {
+            'add_new_course_form' : form,
+            'all_courses_ordered_by_dept' : all_courses_ordered_by_dept,
+
+        } )
+
+    print(' user did not load the page just now  ')
+
+    if ( request.method == 'POST' ) : # user clicked on the add_new_course button
+        form = add_new_course_form( request.POST )
+
+        if ( not form.is_valid() ) : # invalid form
+            return render(request, 'add_new_course.html', {
+                'add_new_course_form': form,
+                'error' : 'Invalid form',
+                'all_courses_ordered_by_dept': all_courses_ordered_by_dept,
+            })
+
+        # a valid form submitted
+
+        course = form.save(commit=False)
+        course.save()
+
+        new_form = add_new_course_form()
+        return render( request, 'add_new_course.html',
+                       {
+                           'add_new_course_form' : form,
+                           'message' : 'Successfully added the course' ,
+                            'all_courses_ordered_by_dept': all_courses_ordered_by_dept,
+                       })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def handle_log_in(request, logged_out = False ):
 #     if logged_out:
