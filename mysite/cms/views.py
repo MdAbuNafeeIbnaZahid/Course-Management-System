@@ -20,9 +20,9 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User, Department, Course
+from cms.models import Teacher, Student, User, Department, Course, Class_of_course
 from cms.templates import includes
-from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form
+from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form
 
 
 
@@ -98,7 +98,7 @@ def handle_change_password(request):
 
 def handle_log_out(request):
     request.session['username'] = None
-    request.session['usertype'] = None
+    request.session['user_type'] = None
     return redirect( handle_log_in )
     # return render(request, 'login_page.html', {'error' : False} )
 
@@ -133,15 +133,19 @@ def handle_add_department(request):
             return render(request, 'add_new_department.html', { 'dept_list' : dept_list } )
     else: # Non admin
         print('user is not admin')
-        return render(request, 'includes/user_navigation.html', {'error': None})
-
+        # return render(request, 'includes/user_navigation.html', {'error': None})
+        return render(request, 'permission_denied.html' )
 
 
 def handle_add_new_student(request):
+
     user_type = request.session.get('user_type', None)
+
+    print( 'user_type = ' + str(user_type)  )
+
     if ( user_type != 'ADMIN' ): # Non admin
         print('User is not admin')
-        return render( request, 'includes/user_navigation.html', {'error': None} )
+        return render(request, 'permission_denied.html')
 
     else: #user is admin
 
@@ -206,7 +210,7 @@ def handle_add_new_course(request):
     user_type = request.session.get('user_type', None)
     if (user_type != 'ADMIN'):  # Non admin
         print('User is not admin')
-        return render(request, 'includes/user_navigation.html', {'error': None})
+        return render(request, 'permission_denied.html')
 
     # user is admin
     print('user is admin')
@@ -259,6 +263,46 @@ def handle_add_new_course(request):
 
 
 
+def handle_add_new_class_of_course(request):
+    user_type = request.session.get('user_type', None)
+    if (user_type != 'ADMIN'):  # Non admin
+        print('User is not admin')
+        return render(request, 'permission_denied.html')
+
+    # user is admin
+    print( 'user is admin' )
+
+    all_classes = Class_of_course.objects.all().order_by( '-year', '-month' )
+
+    if ( request.method != 'POST' ) : # user didn't click the add button just now
+        form = add_new_class_of_course_form()
+
+        return render(request, 'add_new_class_of_course.html', {
+            'add_new_class_of_course_form' : form,
+            'all_classes' : all_classes,
+        } )
+
+    # user clicked the add button
+    form = add_new_class_of_course_form( request.POST )
+
+    if (not form.is_valid()):  # invalid form
+        return render(request, 'add_new_class_of_course.html', {
+            'add_new_class_of_course_form': form,
+            'error': 'Invalid form',
+            'all_courses_ordered_by_dept': all_classes,
+        })
+
+    # a valid form submitted
+    class_of_course = form.save(commit=False)
+    class_of_course.save()
+
+    new_form = add_new_class_of_course_form()
+    return render(request, 'add_new_class_of_course.html',
+                  {
+                      'add_new_class_of_course_form' : form,
+                      'message' : 'class successfully added',
+                      'all_classes': all_classes,
+                  })
 
 
 

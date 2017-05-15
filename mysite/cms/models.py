@@ -47,9 +47,10 @@ class Teacher(User):
     )
     joinDate = models.DateField(null=True, blank=True)
     dept = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
-    rank = models.CharField(max_length=200, blank=True)
+    rank = models.CharField(max_length=200, blank=True, choices=RANKS)
+
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return 'username = ' + self.username + ', name = ' + self.first_name + " " + self.last_name
 
 
 
@@ -111,6 +112,18 @@ class Class_of_course(models.Model):
     course_of_class = models.ForeignKey(Course)
     class_teacher = models.ManyToManyField( Teacher )
 
+    class Meta:
+        unique_together = ( 'month', 'year', 'course_of_class' )
+
+    def __str__(self):
+        class_teacher_list = self.class_teacher.all()
+        ret =  self.month + ' - ' + str(self.year) + ', ' + self.course_of_class.course_num + ' - ' + \
+                self.course_of_class.course_name + ' ( '
+        for teacher in class_teacher_list :
+            ret += ( teacher.__str__() + ', ' )
+        ret += ')'
+
+        return ret
 
 
 ########  I am skipping Department head log table. I think it is unnecessary.
