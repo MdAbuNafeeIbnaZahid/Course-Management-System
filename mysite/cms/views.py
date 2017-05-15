@@ -22,7 +22,7 @@ from django.core.mail import send_mail
 
 from cms.models import Teacher, Student, User, Department
 from cms.templates import includes
-from cms.forms import Student_profile_form
+from cms.forms import Student_profile_form, add_new_student_form
 
 
 
@@ -114,6 +114,7 @@ def change_profile_student(request):
 
 def handle_add_department(request):
     user_type = request.session.get('user_type', None)
+    print('user_type = ' + user_type)
     if user_type == 'ADMIN' : # user is admin
 
         dept_list = Department.objects.all()
@@ -131,10 +132,73 @@ def handle_add_department(request):
         else: # admin just loaded the page
             return render(request, 'add_new_department.html', { 'dept_list' : dept_list } )
     else: # Non admin
-        return render(request, 'login_page.html', {'error': None})
+        print('user is not admin')
+        return render(request, 'includes/user_navigation.html', {'error': None})
 
 
 
+def handle_add_new_student(request):
+    user_type = request.session.get('user_type', None)
+    if ( user_type != 'ADMIN' ): # Non admin
+        print('User is not admin')
+        return render( request, 'includes/user_navigation.html', {'error': None} )
+
+    else: #user is admin
+
+        if ( request.method == 'POST' ) : #user clicked on the add button
+
+            print('user clicked on the add button')
+
+            form = add_new_student_form(request.POST)
+
+
+
+            if ( form.is_valid() ) :
+
+                print( ' form is valid ' )
+
+                username =  form.cleaned_data.get('username', None)
+
+                print( 'username = ' + username )
+
+
+                password = form.cleaned_data.get('password', None )
+                student_id = form.cleaned_data.get( 'studentId', None )
+                dept = form.cleaned_data.get('dept', None)
+                level = form.cleaned_data.get('level', None)
+                term = form.cleaned_data.get( 'term', None )
+
+                user_with_same_username_cnt = User.objects.filter(username= username).count()
+
+                if ( user_with_same_username_cnt > 0 ):
+                    return render(request, 'add_new_student.html',
+                                  {'add_new_student_form': form, 'error' : 'username already exists'} )
+
+                student_with_same_std_id_cnt = Student.objects.filter( studentId= student_id ).count()
+
+                if ( student_with_same_std_id_cnt > 0 ) :
+                    return render(request, 'add_new_student.html',
+                                  {'add_new_student_form': form, 'error': 'student id already exists'} )
+
+
+                student_to_add = form.save(commit=False)
+                student_to_add.user_type = 'STUDENT'
+
+                student_to_add.save()
+
+                return render(request, 'add_new_student.html',
+                              {'add_new_student_form': form,
+                                'message' : 'successfully added student' })
+
+
+            else: # form is not valid
+                return render(request, 'add_new_student.html',
+                              {'add_new_student_form': form, 'error': 'form is invalid'})
+
+        else: # user just loaded the page
+            form = add_new_student_form()
+            return render(request, 'add_new_student.html',
+                          { 'add_new_student_form' : form } )
 
 # def handle_log_in(request, logged_out = False ):
 #     if logged_out:
