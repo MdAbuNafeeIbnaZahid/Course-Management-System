@@ -136,6 +136,12 @@ class Enrolment(models.Model):
     student = models.ForeignKey(Student)
     class_of_course = models.ForeignKey(Class_of_course)
 
+    APPROVAL_STATUS = (
+        ( 'APPROVED', 'Approved' ),
+        ( 'REJECTED', 'Rejected' ),
+    )
+    approval_status = models.CharField(max_length=200, choices=APPROVAL_STATUS, default='APPROVED')
+
     ct1_marks = models.IntegerField(default=0)
     ct2_marks = models.IntegerField(default=0)
     ct3_marks = models.IntegerField(default=0)

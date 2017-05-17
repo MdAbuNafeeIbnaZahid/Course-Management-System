@@ -48,3 +48,8 @@ class add_new_class_of_course_form(forms.ModelForm):
     class Meta:
         model = Class_of_course
         fields = '__all__'
+
+
+# class enrol_in_class_form(forms.ModelForm):
+#     class_field = forms.ModelChoiceFiled( queryset=Class_of_course.objects.all() )
+#

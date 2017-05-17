@@ -293,8 +293,8 @@ def handle_add_new_class_of_course(request):
         })
 
     # a valid form submitted
-    class_of_course = form.save(commit=False)
-    class_of_course.save()
+    class_of_course = form.save()
+    # class_of_course.save()
 
     new_form = add_new_class_of_course_form()
     return render(request, 'add_new_class_of_course.html',
@@ -312,12 +312,22 @@ def handle_add_new_class_of_course(request):
 
 
 
+def handle_enrol_in_class(request):
+    user_type = request.session.get('user_type', None)
+    if (user_type != 'STUDENT'):  # Non student
+        print('User is not student')
+        return render(request, 'permission_denied.html')
+    # user is student
 
 
 
 
 
-
+def teacher_see_list_of_classes(request):
+    user_type = request.session.get('user_type', None)
+    if (user_type != 'TEACHER'):  # Non student
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
 
 
 
