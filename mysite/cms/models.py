@@ -109,7 +109,7 @@ class Class_of_course(models.Model):
     )
     month = models.CharField(max_length=200, choices=SESSION_MONTH, null=True)
     year = models.IntegerField(validators=[MinValueValidator(1990), MaxValueValidator(2020)])
-    course_of_class = models.ForeignKey(Course)
+    course_of_class = models.ForeignKey( Course )
     class_teacher = models.ManyToManyField( Teacher )
 
     class Meta:
@@ -136,11 +136,17 @@ class Enrolment(models.Model):
     student = models.ForeignKey(Student)
     class_of_course = models.ForeignKey(Class_of_course)
 
+
+    APPROVED = 'APPROVED'
+    REJECTED = 'REJECTED'
+    WAITING_FOR_APPROVAL = 'WAITING_FOR_APPROVAL'
+
     APPROVAL_STATUS = (
-        ( 'APPROVED', 'Approved' ),
-        ( 'REJECTED', 'Rejected' ),
+        ( APPROVED, 'Approved' ),
+        ( REJECTED, 'Rejected' ),
+        ( WAITING_FOR_APPROVAL, 'Waiting for approval' )
     )
-    approval_status = models.CharField(max_length=200, choices=APPROVAL_STATUS, default='APPROVED')
+    approval_status = models.CharField(max_length=200, choices=APPROVAL_STATUS, default=WAITING_FOR_APPROVAL)
 
     ct1_marks = models.IntegerField(default=0)
     ct2_marks = models.IntegerField(default=0)

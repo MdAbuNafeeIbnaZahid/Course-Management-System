@@ -20,7 +20,7 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User, Department, Course, Class_of_course
+from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form
 
@@ -314,10 +314,24 @@ def handle_add_new_class_of_course(request):
 
 def handle_enrol_in_class(request):
     user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
     if (user_type != 'STUDENT'):  # Non student
         print('User is not student')
         return render(request, 'permission_denied.html')
+
     # user is student
+    current_student = Student.objects.get(username= username)
+
+    all_classes = Class_of_course.objects.all()
+    classes_student_enrolled_in = current_student.classes_enrolled_in_set.all()
+    # print( str(classes_student_enrolled_in) )
+
+    all_enrolments_of_current_student = Enrolment.objects.all( ).filter( student= current_student )
+
+    all_approved_enrolments_of_current_student = all_enrolments_of_current_student.filter( approval_status= Enrolment.APPROVED )
+    
+
+
 
 
 
@@ -328,6 +342,7 @@ def teacher_see_list_of_classes(request):
     if (user_type != 'TEACHER'):  # Non student
         print('User is not teacher')
         return render(request, 'permission_denied.html')
+
 
 
 
