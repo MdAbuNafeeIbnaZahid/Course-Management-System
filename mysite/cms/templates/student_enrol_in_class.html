@@ -1,0 +1,40 @@
+{% comment %}
+
+  'all_classes' : all_classes,
+   'classes_student_enrolled_in' : classes_student_enrolled_in,
+   'all_enrolments_of_current_student' : all_enrolments_of_current_student,
+   'all_approved_enrolments_of_current_student' : all_approved_enrolments_of_current_student,
+    'classes_available_to_student' : classes_available_to_student,
+    'student_enrol_in_class_form' : form,
+
+{% endcomment %}
+
+
+
+
+{% include 'includes/student_navigation.html' %}
+
+
+<h1> Classes available to you </h1>
+<br>
+{% for cl in classes_available_to_student %}
+    <br>
+     {{ cl }}
+    <br>
+{% endfor %}
+
+
+
+{% if student_enrol_in_class_form %}
+
+    <h1> Enrol in a class </h1>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table>
+    {{ student_enrol_in_class_form }}
+    </table>
+    <input type="submit" value="Enrol"/>
+    </form>
+
+
+{% endif %}

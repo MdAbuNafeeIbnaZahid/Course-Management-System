@@ -20,7 +20,7 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
 
 # from books import views
 from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password, handle_add_department, \
-    handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course
+    handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class
 
 urlpatterns = [
 
@@ -43,10 +43,19 @@ urlpatterns = [
     url(r'^logout/$', handle_log_out, name='handle_log_out'),
     url(r'^change-password', handle_change_password, name='handle_change_password'),
     url(r'^update-profile', handle_update_profile, name='handle_update_profile'),
+
+
+
+    # admin part
     url(r'^add-new-department', handle_add_department,name='handle_add_department'),
     url(r'^add-new-student', handle_add_new_student, name='handle_add_new_student'),
     url(r'^add-new-course', handle_add_new_course, name='handle_add_new_course'),
     url(r'^add-new-class-of-course', handle_add_new_class_of_course, name='handle_add_new_class_of_course'),
+
+
+
+    # student part
+    url( r'^student-enrol-in-class', handle_student_enrol_in_class, name='handle_student_enrol_in_class' )
 
 
 

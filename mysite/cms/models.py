@@ -120,7 +120,7 @@ class Class_of_course(models.Model):
         ret =  self.month + ' - ' + str(self.year) + ', ' + self.course_of_class.course_num + ' - ' + \
                 self.course_of_class.course_name + ' ( '
         for teacher in class_teacher_list :
-            ret += ( teacher.__str__() + ', ' )
+            ret += ( teacher.__str__() + '; ' )
         ret += ')'
 
         return ret
@@ -166,6 +166,9 @@ class Enrolment(models.Model):
     other = models.IntegerField(default=0)
 
     final_out_of_hundred = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ( 'student', 'class_of_course' )
 
 
 

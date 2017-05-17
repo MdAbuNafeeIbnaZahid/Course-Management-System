@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Student, User, Course, Class_of_course
+from cms.models import Student, User, Course, Class_of_course, Enrolment
 
 class Student_profile_form(forms.ModelForm):
     class Meta:
@@ -50,6 +50,8 @@ class add_new_class_of_course_form(forms.ModelForm):
         fields = '__all__'
 
 
-# class enrol_in_class_form(forms.ModelForm):
-#     class_field = forms.ModelChoiceFiled( queryset=Class_of_course.objects.all() )
-#
+class student_enrol_in_class_form(forms.ModelForm):
+    class Meta:
+        model = Enrolment
+        fields = [ 'class_of_course' ]
+

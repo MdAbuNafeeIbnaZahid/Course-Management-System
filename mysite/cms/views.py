@@ -1,5 +1,5 @@
 from django.views.decorators.csrf import csrf_exempt
-
+from django import forms
 
 
 from django.urls import reverse
@@ -22,7 +22,9 @@ from django.core.mail import send_mail
 
 from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
 from cms.templates import includes
-from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form
+from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
+    student_enrol_in_class_form
+
 
 
 
@@ -312,7 +314,7 @@ def handle_add_new_class_of_course(request):
 
 
 
-def handle_enrol_in_class(request):
+def handle_student_enrol_in_class(request):
     user_type = request.session.get('user_type', None)
     username = request.session.get('username', None)
     if (user_type != 'STUDENT'):  # Non student
@@ -323,13 +325,35 @@ def handle_enrol_in_class(request):
     current_student = Student.objects.get(username= username)
 
     all_classes = Class_of_course.objects.all()
-    classes_student_enrolled_in = current_student.classes_enrolled_in_set.all()
+    classes_student_enrolled_in = current_student.classes_enrolled_in.all()
+    classes_available_to_student = all_classes.exclude( pk__in =  classes_student_enrolled_in )
+
     # print( str(classes_student_enrolled_in) )
 
     all_enrolments_of_current_student = Enrolment.objects.all( ).filter( student= current_student )
 
     all_approved_enrolments_of_current_student = all_enrolments_of_current_student.filter( approval_status= Enrolment.APPROVED )
-    
+
+
+    if ( request.method != 'POST' ) : # user didn't click on the enrol button just now
+        student_enrol_in_class_form.base_fields['class_of_course'] = \
+            forms.ModelChoiceField(queryset=classes_available_to_student)
+        form = student_enrol_in_class_form()
+        return render( request, 'student_enrol_in_class.html',
+                       {
+                          'all_classes' : all_classes,
+                           'classes_student_enrolled_in' : classes_student_enrolled_in,
+                           'classes_available_to_student' : classes_available_to_student,
+                           'all_enrolments_of_current_student' : all_enrolments_of_current_student,
+                           'all_approved_enrolments_of_current_student' : all_approved_enrolments_of_current_student,
+                           'student_enrol_in_class_form' : form,
+                       }
+                        )
+
+
+    if ( request.method == 'POST' ) :
+        pass
+
 
 
 
