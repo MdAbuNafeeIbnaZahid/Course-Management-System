@@ -1,3 +1,35 @@
+{% comment %}
+
+add_new_teacher_form,
+error ,
+message,
+
+{% endcomment %}
+
+
+
 {% include 'includes/admin_navigation.html' %}
 
 <h1> Add new teacher </h1>
+
+
+<br>
+{% if error %}
+    {{ error }}
+{% endif %}
+<br>
+
+<br>
+{% if message %}
+    {{ message }}
+{% endif %}
+<br>
+
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+{{ add_new_teacher_form }}
+</table>
+<input type="submit" value="Add new teacher"/>
+</form>

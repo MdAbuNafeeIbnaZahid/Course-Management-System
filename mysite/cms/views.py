@@ -23,7 +23,7 @@ from django.core.mail import send_mail
 from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
-    student_enrol_in_class_form
+    student_enrol_in_class_form, add_new_teacher_form
 
 
 
@@ -414,8 +414,67 @@ def teacher_see_list_of_classes(request):
 
 
 def handle_add_new_teacher(request):
+    user_type = request.session.get('user_type', None)
+
+    print( 'user_type = ' + str(user_type) )
+
+    if (user_type != 'ADMIN'):  # Non admin
+        print('User is not admin')
+        return render(request, 'permission_denied.html')
+
+    if ( request.method != 'POST' ) :  # user just loaded the page
+        form = add_new_teacher_form()
+        return render(request, 'add_new_teacher.html',
+                      {'add_new_teacher_form': form})
 
 
+
+    if (request.method == 'POST'):  # user clicked on the add button
+
+        print('user clicked on the add button')
+
+        form = add_new_teacher_form(request.POST)
+
+
+        if ( not form.is_valid() ) :  # form is not valid
+
+            return render(request, 'add_new_teacher.html',
+                      {'add_new_teacher_form': form, 'error': 'form is invalid'})
+
+
+
+        # form is valid
+        print(' form is valid ')
+
+
+
+        username = form.cleaned_data.get('username', None)
+
+        print('username = ' + username)
+
+        password = form.cleaned_data.get('password', None)
+
+        dept = form.cleaned_data.get('dept', None)
+
+        rank = form.cleaned_data.get('rank', None)
+
+        user_with_same_username_cnt = User.objects.filter(username=username).count()
+
+        if (user_with_same_username_cnt > 0):
+            return render(request, 'add_new_teacher.html',
+                          {'add_new_teacher_form': form, 'error': 'username already exists'})
+
+
+
+
+        teacher_to_add = form.save(commit=False)
+        teacher_to_add.user_type = User.TEACHER
+
+        teacher_to_add.save()
+
+        return render(request, 'add_new_teacher.html',
+                      {'add_new_teacher_form': form,
+                       'message': 'successfully added teacher'})
 
 
 

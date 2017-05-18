@@ -14,6 +14,12 @@ class User(models.Model):
     address = models.CharField(max_length=200, default="", blank=True)
     phone_num = models.CharField(max_length=20, blank=True)
     email_address = models.EmailField(null=True, blank=True)
+
+
+    TEACHER = 'TEACHER'
+    STUDENT = 'STUDENT'
+    ADMIN = 'ADMIN'
+
     USER_TYPE = (
         ( 'TEACHER', 'Teacher' ),
         ( 'STUDENT', 'Student' ),
@@ -33,6 +39,7 @@ class Department(models.Model):
         return self.name
 
 
+
 class Teacher(User):
     PROFESSOR = 'PROFESSOR'
     ASSOCIATE_PROF = 'ASSOCIATE_PROF'
@@ -50,7 +57,7 @@ class Teacher(User):
     rank = models.CharField(max_length=200, blank=True, choices=RANKS)
 
     def __str__(self):
-        return 'username = ' + self.username + ', name = ' + self.first_name + " " + self.last_name
+        return 'username = ' + self.username + ', name = ' + self.first_name + " " + self.last_name + ', dept = ' + self.dept.name 
 
 
 
