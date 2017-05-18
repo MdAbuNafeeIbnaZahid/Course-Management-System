@@ -1,0 +1,27 @@
+{% comment %}
+all_dept
+{% endcomment %}
+
+
+{% include 'includes/admin_navigation.html' %}
+
+
+<h1> List of teachers </h1>
+{% for dept in all_dept %}
+    <br>
+    <b> {{ dept }} </b>
+    <br>
+
+    {% for teacher in dept.teacher_set.all %}
+        <br>
+        {{ teacher }}
+        <br>
+    {% endfor %}
+
+{% endfor %}
+
+
+
+<h1> Set head of a department </h1>
+
+

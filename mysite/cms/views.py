@@ -488,6 +488,13 @@ def admin_set_dept_head(request):
         print('User is not admin')
         return render(request, 'permission_denied.html')
 
+    all_dept = Department.objects.all()
+    if ( request.method != 'POST' ) : # user just loaded the page
+        return render(request, 'admin_set_department_head.html',
+                      {
+                          'all_dept' : all_dept,
+                      }
+                      )
 
 
 

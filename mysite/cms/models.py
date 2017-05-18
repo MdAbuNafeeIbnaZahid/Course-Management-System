@@ -36,7 +36,16 @@ class Department(models.Model):
     head = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name + ' ( head = ' + str(self.head) + ' )'
+
+    def clean(self):
+        if ( self.head is not models.null ) :
+            dept_of_head = self.head.dept
+            if ( dept_of_head != self ) :
+                raise ValidationError('Department head must be teacher of same department')
+
+
+
 
 
 
