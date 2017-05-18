@@ -1,1 +1,16 @@
+{% comment %}
+
+all_classes_current_teacher_assigned_to
+
+{% endcomment %}
+
+
+
 {% include  'includes/teacher_navigation.html' %}
+
+<h1> List of classes you are assigned to </h1>
+{% for cl in all_classes_current_teacher_assigned_to %}
+    <br>
+    {{ cl }}
+    <br>
+{% endfor %}

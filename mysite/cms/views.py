@@ -415,7 +415,7 @@ def handle_student_enrol_in_class(request):
 
 def teacher_see_list_of_classes_assigned_to(request):
     user_type = request.session.get('user_type', None)
-    username = request.session.get('')
+    username = request.session.get('username', None)
     if (user_type != 'TEACHER'):  # Non Teacher
         print('User is not teacher')
         return render(request, 'permission_denied.html')
@@ -423,7 +423,11 @@ def teacher_see_list_of_classes_assigned_to(request):
 
     # user is a teacher
     current_teacher = Teacher.objects.get( username= username )
-    all_classes_current_teacher_assigned_to = current_teacher.class_of_course_set
+    all_classes_current_teacher_assigned_to = current_teacher.class_of_course_set.all()
+
+    context = {'all_classes_current_teacher_assigned_to' : all_classes_current_teacher_assigned_to}
+    return render(request, 'teacher_see_list_of_classes_assigned_to.html', context )
+
 
 
 
@@ -563,7 +567,18 @@ def admin_set_dept_head(request):
 
 
 def approve_new_enrol_request(request):
-    pass
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    is_hod = request.session.get('is_hod', None)
+    if ( (user_type != 'TEACHER') or ( not is_hod ) ):  # Non HoD
+        print('User is not HoD')
+        return render(request, 'permission_denied.html')
+
+
+    
+
+
+
 
 
 # def handle_log_in(request, logged_out = False ):

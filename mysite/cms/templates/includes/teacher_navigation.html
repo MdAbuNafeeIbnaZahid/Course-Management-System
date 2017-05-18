@@ -2,8 +2,13 @@
 
 <h1> Teacher navigation </h1>
 
+<br>
+<a href="{% url 'teacher_see_list_of_classes_assigned_to' %}" > See list of classes you are assigned to  </a>
+<br>
+
 
 
 {% if request.session.is_hod %}
 <h1> Department head navigation </h1>
+
 {% endif %}

@@ -21,7 +21,7 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
 # from books import views
 from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password, handle_add_department, \
     handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class, \
-    handle_add_new_teacher, admin_set_dept_head
+    handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to
 
 urlpatterns = [
 
@@ -57,13 +57,16 @@ urlpatterns = [
 
 
     # student part
-    url( r'^student-enrol-in-class', handle_student_enrol_in_class, name='handle_student_enrol_in_class' )
+    url( r'^student-enrol-in-class', handle_student_enrol_in_class, name='handle_student_enrol_in_class' ),
 
 
 
 
 
     # teacher part
+    url(r'teacher-see-list-of-classes-assigned-to', teacher_see_list_of_classes_assigned_to,
+        name='teacher_see_list_of_classes_assigned_to'),
+
 
 
 
