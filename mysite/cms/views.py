@@ -392,6 +392,8 @@ def handle_student_enrol_in_class(request):
             new_enrolment.student = current_student
             new_enrolment.save()
 
+            student_enrol_in_class_form.base_fields['class_of_course'] = \
+                forms.ModelChoiceField(queryset=classes_available_to_student)
             form = student_enrol_in_class_form()
 
             return render(request, 'student_enrol_in_class.html',
@@ -593,8 +595,19 @@ def hod_approve_new_enrol_request(request):
         return render( request, 'hod_approve_enrolment.html', context )
 
 
-    if ( request.method == 'POST' ) : # user clicked on the
-        pass
+
+
+    #########  Need to starty working from here
+    ########  this if block's work is not complete
+    
+    if ( request.method == 'POST' ) : # hod clicked on the approve of reject button
+        covered_enrolments = request.POST.getlist('enrolments_to_deal', None)
+        print( covered_enrolments )
+        context = {'dept_of_hod': dept_of_hod,
+                   'all_waiting_for_approval_enrolment_of_this_dept': all_waiting_for_approval_enrolment_of_this_dept,
+                   'hod_approve_enrolment_form': form,
+                   }
+        return render(request, 'hod_approve_enrolment.html', context)
 
 
 

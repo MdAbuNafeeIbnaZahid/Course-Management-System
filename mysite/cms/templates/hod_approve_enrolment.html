@@ -24,7 +24,7 @@ hod_approve_enrolment_form
 {% if hod_approve_enrolment_form %}
     <br>
     <br>
-    <h1> Approve Enrolments of {{ dept_of_hod }} </h1>
+    <h1> Approve Enrolments of {{ dept_of_hod.name }} </h1>
     <form method="post" action="">
     {% csrf_token %}
     <table>
