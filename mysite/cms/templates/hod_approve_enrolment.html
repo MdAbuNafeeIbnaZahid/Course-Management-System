@@ -1,0 +1,40 @@
+{% comment %}
+all_waiting_for_approval_enrolment_of_this_dept,
+dept_of_hod,
+hod_approve_enrolment_form
+{% endcomment %}
+
+
+
+{% include 'includes/teacher_navigation.html' %}
+
+{#<h3> All waiting for approval enrolments of {{ dept_of_hod }} </h3>#}
+
+{% comment %}
+
+{% for en in all_waiting_for_approval_enrolment_of_this_dept %}
+    <br>
+    {{ en }}
+    <br>
+{% endfor %}
+
+{% endcomment %}
+
+
+{% if hod_approve_enrolment_form %}
+    <br>
+    <br>
+    <h1> Approve Enrolments of {{ dept_of_hod }} </h1>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table>
+    {{ hod_approve_enrolment_form }}
+    </table>
+    <input type="submit" name="approve" value="Approve"/>
+    <input type="submit" name="reject" value="Reject"/>
+    </form>
+
+    <br>
+    <br>
+{% endif %}
+

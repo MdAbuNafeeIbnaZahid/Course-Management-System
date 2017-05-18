@@ -85,3 +85,13 @@ class admin_set_dept_head_form(forms.Form):
 
         return self.cleaned_data
 
+
+class hod_approve_enrolment_form(forms.Form) :
+    waiting_for_approval_enrolments_of_this_dept = forms.ModelMultipleChoiceField(queryset=None, \
+                    widget=forms.CheckboxSelectMultiple)
+    def __init__(self, dept, *args, **kwargs):
+        super(hod_approve_enrolment_form, self).__init__(*args, **kwargs)
+        all_waiting_for_approval_enrolment_of_this_dept = Enrolment.objects.all().\
+            filter(approval_status=Enrolment.WAITING_FOR_APPROVAL, student__dept=dept).order_by(
+            'student__studentId')
+        self.fields[ 'waiting_for_approval_enrolments_of_this_dept' ].queryset = all_waiting_for_approval_enrolment_of_this_dept

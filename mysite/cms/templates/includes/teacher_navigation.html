@@ -9,6 +9,8 @@
 
 
 {% if request.session.is_hod %}
-<h1> Department head navigation </h1>
-
+<h3> Department head navigation </h3>
+<br>
+<a href="{% url 'hod_approve_new_enrol_request' %}" > Approve enrol requests  </a>
+<br>
 {% endif %}

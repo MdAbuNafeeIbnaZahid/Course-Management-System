@@ -23,7 +23,7 @@ from django.core.mail import send_mail
 from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
-    student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form
+    student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form
 
 
 
@@ -566,7 +566,7 @@ def admin_set_dept_head(request):
 
 
 
-def approve_new_enrol_request(request):
+def hod_approve_new_enrol_request(request):
     user_type = request.session.get('user_type', None)
     username = request.session.get('username', None)
     is_hod = request.session.get('is_hod', None)
@@ -574,8 +574,31 @@ def approve_new_enrol_request(request):
         print('User is not HoD')
         return render(request, 'permission_denied.html')
 
+    hod = Teacher.objects.get(username=username)
+    dept_of_hod = hod.dept
 
-    
+    all_student_of_this_dept = dept_of_hod.student_set.all()
+    all_waiting_for_approval_enrolment_of_this_dept = Enrolment.objects.all().\
+        filter( approval_status=Enrolment.WAITING_FOR_APPROVAL, student__dept=dept_of_hod).order_by( 'student__studentId' )
+
+    form = hod_approve_enrolment_form( dept_of_hod )
+
+    print('request.method = ' + request.method)
+
+    if ( request.method != 'POST' ) : # hod just loaded the page
+        context =  { 'dept_of_hod' : dept_of_hod,
+                     'all_waiting_for_approval_enrolment_of_this_dept' : all_waiting_for_approval_enrolment_of_this_dept,
+                     'hod_approve_enrolment_form' : form,
+                     }
+        return render( request, 'hod_approve_enrolment.html', context )
+
+
+    if ( request.method == 'POST' ) : # user clicked on the
+        pass
+
+
+
+
 
 
 
