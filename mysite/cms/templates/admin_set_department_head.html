@@ -1,9 +1,28 @@
 {% comment %}
-all_dept
+    all_dept,
+    admin_set_dept_head_form,
+    error_message,
+    success_message,
+
 {% endcomment %}
 
 
 {% include 'includes/admin_navigation.html' %}
+
+
+{% if error_message %}
+    <br>
+    <h1> {{ error_message }} </h1>
+    <br>
+{% endif %}
+
+{% if success_message %}
+    <br>
+    <h1> {{ success_message }} </h1>
+    <br>
+{% endif %}
+
+
 
 
 <h1> List of teachers </h1>
@@ -23,5 +42,14 @@ all_dept
 
 
 <h1> Set head of a department </h1>
+
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+{{ admin_set_dept_head_form }}
+</table>
+<input type="submit" value="Set as head"/>
+</form>
 
 

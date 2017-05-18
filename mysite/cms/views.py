@@ -23,7 +23,7 @@ from django.core.mail import send_mail
 from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
-    student_enrol_in_class_form, add_new_teacher_form
+    student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form
 
 
 
@@ -423,13 +423,17 @@ def handle_add_new_teacher(request):
         return render(request, 'permission_denied.html')
 
     if ( request.method != 'POST' ) :  # user just loaded the page
+
+
+        print('user just loaded the page')
+
         form = add_new_teacher_form()
         return render(request, 'add_new_teacher.html',
                       {'add_new_teacher_form': form})
 
 
 
-    if (request.method == 'POST'):  # user clicked on the add button
+    if ( request.method == 'POST'):  # user clicked on the add button
 
         print('user clicked on the add button')
 
@@ -488,15 +492,56 @@ def admin_set_dept_head(request):
         print('User is not admin')
         return render(request, 'permission_denied.html')
 
+    form = admin_set_dept_head_form()
+
+    print('request.method = ' + request.method)
+
     all_dept = Department.objects.all()
     if ( request.method != 'POST' ) : # user just loaded the page
+
+        print('user just loaded the set dept head page')
+
         return render(request, 'admin_set_department_head.html',
                       {
                           'all_dept' : all_dept,
+                          'admin_set_dept_head_form' : form,
                       }
                       )
 
+    if ( request.method == 'POST' ) : #user just clicked on the set button
+        dept_pk = request.POST.get('dept', None)
+        new_head_pk = request.POST.get('head', None)
 
+        dept = Department.objects.get(pk=dept_pk)
+        new_head = Teacher.objects.get(pk=new_head_pk)
+
+        # print('dept = ' + str(dept) )
+        # print('new_head = ' + str(new_head) )
+
+        if ( new_head.dept != dept ) : # selected teacher is not in that department
+            return render(request, 'admin_set_department_head.html',
+                          {
+                              'all_dept': all_dept,
+                              'admin_set_dept_head_form': form,
+                              'error_message' : 'Department head must be from that department'
+                          }
+                          )
+
+
+
+        # everything is alright
+        # going to update the database
+
+        dept.head = new_head
+        dept.save()
+
+        return render(request, 'admin_set_department_head.html',
+                  {
+                      'all_dept': all_dept,
+                      'admin_set_dept_head_form': form,
+                      'success_message' : 'successfully altered the HoD'
+                  }
+                  )
 
 
 

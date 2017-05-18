@@ -67,8 +67,21 @@ class student_enrol_in_class_form(forms.ModelForm):
 
 
 
-class admin_set_dept_head_form(forms.ModelForm):
-    class Meta:
-        model = Department
-        fields = '__all__'
+class admin_set_dept_head_form(forms.Form):
+    dept = forms.ModelChoiceField( Department.objects.all() )
+    head = forms.ModelChoiceField( Teacher.objects.all().order_by( 'dept' ) )
+
+    def clean(self):
+
+        # clean method is never called
+        # I don't know why it is happening
+
+        dept_ = self.cleaned_data.get('dept', None)
+        head_ = self.cleaned_data.get('head', None)
+        print('dept = ' + dept_ )
+        print( 'head = ' + head_ )
+
+        # raise ValidationError('Form is not valid')
+
+        return self.cleaned_data
 

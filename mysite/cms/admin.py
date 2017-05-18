@@ -16,9 +16,9 @@ class StudentAdminForm(ModelForm):
 class TeacherAdminForm(ModelForm):
     class Meta:
         model = Teacher
-        widgets = {
-            'password' : PasswordInput(),
-        }
+        # widgets = {
+        #     'password' : PasswordInput(),
+        # }
         fields = "__all__"
 
 
