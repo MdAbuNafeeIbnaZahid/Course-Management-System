@@ -2,3 +2,8 @@
 
 <h1> Teacher navigation </h1>
 
+
+
+{% if request.session.is_hod %}
+<h1> Department head navigation </h1>
+{% endif %}

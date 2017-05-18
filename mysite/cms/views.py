@@ -76,6 +76,13 @@ def handle_log_in(request, **kwargs):
             else: # correct username and password
                 request.session['username'] = username
                 request.session['user_type'] = user.user_type
+
+                if ( user.user_type == User.TEACHER ) : # check if the current user is the hod
+                    current_teacher = Teacher.objects.get( username= username )
+                    if ( current_teacher == current_teacher.dept.head ) :
+                        request.session['is_hod'] = True
+
+
                 return HttpResponseRedirect( reverse('handle_log_in' )  );
 
         else:  # one has just loaded the page
@@ -101,6 +108,7 @@ def handle_change_password(request):
 def handle_log_out(request):
     request.session['username'] = None
     request.session['user_type'] = None
+    request.session['is_hod'] = False
     return redirect( handle_log_in )
     # return render(request, 'login_page.html', {'error' : False} )
 
@@ -405,11 +413,19 @@ def handle_student_enrol_in_class(request):
 
 
 
-def teacher_see_list_of_classes(request):
+def teacher_see_list_of_classes_assigned_to(request):
     user_type = request.session.get('user_type', None)
-    if (user_type != 'TEACHER'):  # Non student
+    username = request.session.get('')
+    if (user_type != 'TEACHER'):  # Non Teacher
         print('User is not teacher')
         return render(request, 'permission_denied.html')
+
+
+    # user is a teacher
+    current_teacher = Teacher.objects.get( username= username )
+    all_classes_current_teacher_assigned_to = current_teacher.class_of_course_set
+
+
 
 
 
@@ -543,6 +559,11 @@ def admin_set_dept_head(request):
                   }
                   )
 
+
+
+
+def approve_new_enrol_request(request):
+    pass
 
 
 # def handle_log_in(request, logged_out = False ):
