@@ -57,7 +57,7 @@ class Teacher(User):
     rank = models.CharField(max_length=200, blank=True, choices=RANKS)
 
     def __str__(self):
-        return 'username = ' + self.username + ', name = ' + self.first_name + " " + self.last_name + ', dept = ' + self.dept.name 
+        return 'username = ' + self.username + ', name = ' + self.first_name + " " + self.last_name + ', dept = ' + self.dept.name
 
 
 

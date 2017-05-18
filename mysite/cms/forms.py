@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher
+from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department
 
 class Student_profile_form(forms.ModelForm):
     class Meta:
@@ -64,4 +64,11 @@ class student_enrol_in_class_form(forms.ModelForm):
     class Meta:
         model = Enrolment
         fields = [ 'class_of_course' ]
+
+
+
+class admin_set_dept_head_form(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = '__all__'
 

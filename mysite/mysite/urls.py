@@ -61,5 +61,12 @@ urlpatterns = [
 
 
 
+
+
+    # teacher part
+
+
+
+
     # url(r'^student_profile_update/$', change_profile_student, name='change_profile_student'),
 ]

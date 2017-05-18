@@ -479,6 +479,15 @@ def handle_add_new_teacher(request):
 
 
 
+def admin_set_dept_head(request):
+    user_type = request.session.get('user_type', None)
+
+    print('user_type = ' + str(user_type))
+
+    if (user_type != 'ADMIN'):  # Non admin
+        print('User is not admin')
+        return render(request, 'permission_denied.html')
+
 
 
 
