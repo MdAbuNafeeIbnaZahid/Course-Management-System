@@ -4,8 +4,13 @@
    'classes_student_enrolled_in' : classes_student_enrolled_in,
    'all_enrolments_of_current_student' : all_enrolments_of_current_student,
    'all_approved_enrolments_of_current_student' : all_approved_enrolments_of_current_student,
+   'all_waiting_for_approval_enrolments_of_current_student' : all_waiting_for_approval_enrolments_of_current_student,
+   'all_rejected_enrolments_of_current_student' : all_rejected_enrolments_of_current_student,
     'classes_available_to_student' : classes_available_to_student,
     'student_enrol_in_class_form' : form,
+    'success_message' : success_message,
+    'error_message': error_message,
+
 
 {% endcomment %}
 
@@ -14,7 +19,22 @@
 
 {% include 'includes/student_navigation.html' %}
 
+{% if error_message %}
+    <br>
+    {{ error_message }}
+    <br>
+{% endif %}
 
+
+{% if success_message %}
+    <br>
+    {{ success_message }}
+    <br>
+{% endif %}
+
+
+<br>
+<br>
 <h1> Classes available to you </h1>
 <br>
 {% for cl in classes_available_to_student %}
@@ -22,11 +42,55 @@
      {{ cl }}
     <br>
 {% endfor %}
+<br>
+<br>
+
+
+<br>
+<br>
+<h1> Your approved enrolments </h1>
+<br>
+{% for en in all_approved_enrolments_of_current_student %}
+    <br>
+     {{ en.class_of_course }}
+    <br>
+{% endfor %}
+<br>
+<br>
+
+
+<br>
+<br>
+<h1> Your enrolments that are waiting for approval </h1>
+<br>
+{% for en in all_waiting_for_approval_enrolments_of_current_student %}
+    <br>
+     {{ en.class_of_course }}
+    <br>
+{% endfor %}
+<br>
+<br>
+
+
+
+<br>
+<br>
+<h1> Your enrolments that are rejected </h1>
+<br>
+{% for en in all_rejected_enrolments_of_current_student %}
+    <br>
+     {{ en.class_of_course }}
+    <br>
+{% endfor %}
+<br>
+<br>
+
 
 
 
 {% if student_enrol_in_class_form %}
-
+    <br>
+    <br>
     <h1> Enrol in a class </h1>
     <form method="post" action="">
     {% csrf_token %}
@@ -36,5 +100,6 @@
     <input type="submit" value="Enrol"/>
     </form>
 
-
+    <br>
+    <br>
 {% endif %}

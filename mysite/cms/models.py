@@ -84,6 +84,11 @@ class Student(User):
     dues = models.IntegerField( default=0 )
 
 
+    def __str__(self):
+        user_string = super(Student, self).__str__()
+        return user_string
+
+
 
 
 class Course(models.Model):
@@ -170,6 +175,9 @@ class Enrolment(models.Model):
     class Meta:
         unique_together = ( 'student', 'class_of_course' )
 
+
+    def __str__(self):
+        return 'student = ' + str(self.student) + '; class_of_course = ' + str(self.class_of_course) + '; '
 
 
 

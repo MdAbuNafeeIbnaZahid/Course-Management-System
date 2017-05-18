@@ -333,6 +333,13 @@ def handle_student_enrol_in_class(request):
     all_enrolments_of_current_student = Enrolment.objects.all( ).filter( student= current_student )
 
     all_approved_enrolments_of_current_student = all_enrolments_of_current_student.filter( approval_status= Enrolment.APPROVED )
+    all_waiting_for_approval_enrolments_of_current_student = all_enrolments_of_current_student.filter(
+        approval_status=Enrolment.WAITING_FOR_APPROVAL)
+    all_rejected_enrolments_of_current_student = all_enrolments_of_current_student.filter(
+        approval_status=Enrolment.REJECTED)
+
+
+
 
 
     if ( request.method != 'POST' ) : # user didn't click on the enrol button just now
@@ -346,15 +353,52 @@ def handle_student_enrol_in_class(request):
                            'classes_available_to_student' : classes_available_to_student,
                            'all_enrolments_of_current_student' : all_enrolments_of_current_student,
                            'all_approved_enrolments_of_current_student' : all_approved_enrolments_of_current_student,
+                           'all_waiting_for_approval_enrolments_of_current_student' : all_waiting_for_approval_enrolments_of_current_student,
+                           'all_rejected_enrolments_of_current_student' : all_rejected_enrolments_of_current_student,
                            'student_enrol_in_class_form' : form,
                        }
                         )
 
 
-    if ( request.method == 'POST' ) :
-        pass
+    if ( request.method == 'POST' ) : # student clicked on the enrol button just now
+        form = student_enrol_in_class_form(request.POST)
+        if ( not form.is_valid() ) :
+            print( 'Form is not valid' )
+            return render(request, 'student_enrol_in_class.html',
+                      {
+                          'all_classes': all_classes,
+                          'classes_student_enrolled_in': classes_student_enrolled_in,
+                          'classes_available_to_student': classes_available_to_student,
+                          'all_enrolments_of_current_student': all_enrolments_of_current_student,
+                          'all_approved_enrolments_of_current_student': all_approved_enrolments_of_current_student,
+                          'all_waiting_for_approval_enrolments_of_current_student': all_waiting_for_approval_enrolments_of_current_student,
+                          'all_rejected_enrolments_of_current_student': all_rejected_enrolments_of_current_student,
+                          'student_enrol_in_class_form': form,
+                          'error_message' : 'Can not enrol in this class',
+                      }
+                      )
 
+        elif ( form.is_valid() ) : # student submitted a valid enrol request
+            print('Form is valid')
+            new_enrolment = form.save(commit=False)
+            new_enrolment.student = current_student
+            new_enrolment.save()
 
+            form = student_enrol_in_class_form()
+
+            return render(request, 'student_enrol_in_class.html',
+                          {
+                              'all_classes': all_classes,
+                              'classes_student_enrolled_in': classes_student_enrolled_in,
+                              'classes_available_to_student': classes_available_to_student,
+                              'all_enrolments_of_current_student': all_enrolments_of_current_student,
+                              'all_approved_enrolments_of_current_student': all_approved_enrolments_of_current_student,
+                              'all_waiting_for_approval_enrolments_of_current_student': all_waiting_for_approval_enrolments_of_current_student,
+                              'all_rejected_enrolments_of_current_student': all_rejected_enrolments_of_current_student,
+                              'student_enrol_in_class_form': form,
+                              'success_message': 'Successfully enroled in a class',
+                          }
+                          )
 
 
 
@@ -369,7 +413,7 @@ def teacher_see_list_of_classes(request):
 
 
 
-
+def handle_add_new_teacher(request):
 
 
 
