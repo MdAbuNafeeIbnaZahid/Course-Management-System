@@ -580,8 +580,14 @@ def hod_approve_new_enrol_request(request):
     dept_of_hod = hod.dept
 
     all_student_of_this_dept = dept_of_hod.student_set.all()
-    all_waiting_for_approval_enrolment_of_this_dept = Enrolment.objects.all().\
-        filter( approval_status=Enrolment.WAITING_FOR_APPROVAL, student__dept=dept_of_hod).order_by( 'student__studentId' )
+
+    all_enrolment_of_this_dept = Enrolment.objects.all().filter(  student__dept=dept_of_hod).order_by( 'student__studentId' )
+    all_waiting_for_approval_enrolment_of_this_dept = all_enrolment_of_this_dept.filter( approval_status=Enrolment.WAITING_FOR_APPROVAL )
+    all_approved_enrolment_of_this_dept = all_enrolment_of_this_dept.filter( approval_status=Enrolment.APPROVED )
+    all_rejected_enrolment_of_this_dept = all_enrolment_of_this_dept.filter(approval_status=Enrolment.REJECTED)
+
+
+
 
     form = hod_approve_enrolment_form( dept_of_hod )
 
@@ -590,21 +596,33 @@ def hod_approve_new_enrol_request(request):
     if ( request.method != 'POST' ) : # hod just loaded the page
         context =  { 'dept_of_hod' : dept_of_hod,
                      'all_waiting_for_approval_enrolment_of_this_dept' : all_waiting_for_approval_enrolment_of_this_dept,
+                     'all_approved_enrolment_of_this_dept' : all_approved_enrolment_of_this_dept,
+                     'all_rejected_enrolment_of_this_dept' : all_rejected_enrolment_of_this_dept,
                      'hod_approve_enrolment_form' : form,
+
                      }
         return render( request, 'hod_approve_enrolment.html', context )
 
 
 
-
-    #########  Need to starty working from here
-    ########  this if block's work is not complete
-    
-    if ( request.method == 'POST' ) : # hod clicked on the approve of reject button
+    if ( request.method == 'POST' ) : # hod clicked on the approve or reject button
         covered_enrolments = request.POST.getlist('enrolments_to_deal', None)
-        print( covered_enrolments )
-        context = {'dept_of_hod': dept_of_hod,
+        # print( covered_enrolments )
+        if 'approve' in request.POST:
+            approval_status = Enrolment.APPROVED
+        elif 'reject' in request.POST:
+            approval_status = Enrolment.REJECTED
+
+        # print( approval_status )
+        Enrolment.objects.filter(pk__in=covered_enrolments).update(approval_status=approval_status)
+
+
+
+        context = {
+            'dept_of_hod': dept_of_hod,
                    'all_waiting_for_approval_enrolment_of_this_dept': all_waiting_for_approval_enrolment_of_this_dept,
+                    'all_approved_enrolment_of_this_dept' : all_approved_enrolment_of_this_dept,
+                    'all_rejected_enrolment_of_this_dept' : all_rejected_enrolment_of_this_dept,
                    'hod_approve_enrolment_form': form,
                    }
         return render(request, 'hod_approve_enrolment.html', context)

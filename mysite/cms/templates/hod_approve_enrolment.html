@@ -1,5 +1,7 @@
 {% comment %}
 all_waiting_for_approval_enrolment_of_this_dept,
+all_approved_enrolment_of_this_dept,
+all_rejected_enrolment_of_this_dept,
 dept_of_hod,
 hod_approve_enrolment_form
 {% endcomment %}
@@ -7,19 +9,6 @@ hod_approve_enrolment_form
 
 
 {% include 'includes/teacher_navigation.html' %}
-
-{#<h3> All waiting for approval enrolments of {{ dept_of_hod }} </h3>#}
-
-{% comment %}
-
-{% for en in all_waiting_for_approval_enrolment_of_this_dept %}
-    <br>
-    {{ en }}
-    <br>
-{% endfor %}
-
-{% endcomment %}
-
 
 {% if hod_approve_enrolment_form %}
     <br>
@@ -38,3 +27,21 @@ hod_approve_enrolment_form
     <br>
 {% endif %}
 
+<br>
+<h3> Approved enrolment of {{ dept_of_hod.name }} </h3>
+{%  for en in all_approved_enrolment_of_this_dept %}
+    <br>
+    {{ en }}
+    <br>
+{% endfor %}
+<br>
+
+
+<br>
+<h3> Rejected enrolment of {{ dept_of_hod.name }} </h3>
+{%  for en in all_rejected_enrolment_of_this_dept %}
+    <br>
+    {{ en }}
+    <br>
+{% endfor %}
+<br>
