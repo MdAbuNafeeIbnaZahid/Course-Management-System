@@ -1,5 +1,5 @@
 from django import forms
-from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department
+from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department, Forum_post
 
 class Student_profile_form(forms.ModelForm):
     class Meta:
@@ -95,3 +95,9 @@ class hod_approve_enrolment_form(forms.Form) :
             filter(approval_status=Enrolment.WAITING_FOR_APPROVAL, student__dept=dept).order_by(
             'student__studentId')
         self.fields[ 'enrolments_to_deal' ].queryset = all_waiting_for_approval_enrolment_of_this_dept
+
+
+class teacher_post_in_class_forum_form(forms.ModelForm) :
+    class Meta:
+        model = Forum_post
+        fields = [ 'headline', 'text' ]

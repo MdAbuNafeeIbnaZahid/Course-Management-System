@@ -21,7 +21,8 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
 # from books import views
 from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password, handle_add_department, \
     handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class, \
-    handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request
+    handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
+    teacher_post_in_class_forum, student_see_class_forum
 
 urlpatterns = [
 
@@ -58,7 +59,7 @@ urlpatterns = [
 
     # student part
     url( r'^student-enrol-in-class', handle_student_enrol_in_class, name='handle_student_enrol_in_class' ),
-
+    url(r'^student-see-class-forum/(?P<class_pk>[0-9]+)/$', student_see_class_forum, name='student_see_class_forum'),
 
 
 
@@ -66,6 +67,8 @@ urlpatterns = [
     # teacher part
     url(r'teacher-see-list-of-classes-assigned-to', teacher_see_list_of_classes_assigned_to,
         name='teacher_see_list_of_classes_assigned_to'),
+    url(r'teacher-post-in-class-forum/(?P<class_pk>[0-9]+)/$', teacher_post_in_class_forum, name='teacher_post_in_class_forum'),
+
 
 
 

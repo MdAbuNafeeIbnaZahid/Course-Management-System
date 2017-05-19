@@ -54,6 +54,8 @@
     <br>
      {{ en.class_of_course }}
     <br>
+    <a href="{% url 'student_see_class_forum' en.class_of_course.pk %}" > Forum </a>
+    <br>
 {% endfor %}
 <br>
 <br>

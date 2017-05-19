@@ -13,4 +13,6 @@ all_classes_current_teacher_assigned_to
     <br>
     {{ cl }}
     <br>
+    <a href="{% url 'teacher_post_in_class_forum' cl.pk %}" > Forum </a>
+    <br>
 {% endfor %}

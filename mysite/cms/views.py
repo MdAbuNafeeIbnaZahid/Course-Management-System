@@ -1,5 +1,8 @@
+import datetime
+
 from django.views.decorators.csrf import csrf_exempt
 from django import forms
+
 
 
 from django.urls import reverse
@@ -20,10 +23,11 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment
+from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment, Forum_post
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
-    student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form
+    student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
+    teacher_post_in_class_forum_form
 
 
 
@@ -630,53 +634,83 @@ def hod_approve_new_enrol_request(request):
 
 
 
+def teacher_post_in_class_forum(request, class_pk) :
+    print('start of teacher_post_in_class_forum')
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'TEACHER'):  # Non Teacher
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
+
+
+    current_class_of_course = Class_of_course.objects.get(pk=class_pk)
+    print('current_class_of_course = ' + str(current_class_of_course) )
+    current_teacher = Teacher.objects.get( username= username )
+    print('current_teacher = ' + str(current_teacher)  )
+
+
+    if ( not current_class_of_course.class_teacher.all().filter( username=username ).exists() ) :
+        print('current teacher is not assigned to this course')
+        return render(request, 'permission_denied.html')
+
+    # user is a teacher of this class
+
+    form = teacher_post_in_class_forum_form()
+    all_forum_post_of_this_class = Forum_post.objects.all().filter(class_of_course=current_class_of_course).order_by(
+        '-date_time')
+    context = {
+        'current_class_of_course': current_class_of_course,
+        'all_forum_post_of_this_class': all_forum_post_of_this_class,
+        'teacher_post_in_class_forum_form' : form,
+    }
+
+    if ( request.method != 'POST' ): # teacher just loaded the page, didn't click on the post button
+        return render(request, 'teacher_post_in_class_forum.html', context)
+
+
+    # user clicked on the post button
+    submitted_form = teacher_post_in_class_forum_form(request.POST)
+
+    new_post = submitted_form.save(commit=False)
+
+    new_post.teacher = current_teacher
+    new_post.class_of_course = current_class_of_course
+    new_post.date_time = datetime.datetime.now()
+
+    new_post.save()
+
+
+    return render(request, 'teacher_post_in_class_forum.html', context)
 
 
 
 
+def student_see_class_forum(request, class_pk) :
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'STUDENT'):  # Non Teacher
+        return render(request, 'permission_denied.html')
 
-# def handle_log_in(request, logged_out = False ):
-#     if logged_out:
-#         return render(request, 'login_page.html', {'error': False})
-#
-#     username = request.session.get('username', '')
-#     usertype = request.session.get('usertype', '')
-#     if (username != '' and usertype != ''):
-#         if ( usertype == 'teacher' ):
-#             return render(request, 'teacher_homepage.html')
-#
-#         elif (usertype == 'student'):
-#             return render(request, 'student_homepage.html')
-#
-#
-#     username = request.GET.get('username', '')
-#     password = request.GET.get('password', '')
-#     usertype = request.GET.get('usertype', '')
-#
-#     # print(username)
-#     # print(password)
-#     # print(usertype)
-#
-#     if ( usertype == "teacher" ):
-#         teacher = Teacher.objects.filter(username=username, password=password)
-#         print(teacher)
-#         if teacher:
-#             print("teacher found")
-#             request.session['username'] = username
-#             request.session['usertype'] = usertype
-#             return render(request, 'teacher_homepage.html')
-#         else:
-#             print("Teacher not found")
-#
-#     elif ( usertype == 'student' ):
-#         student = Student.objects.filter(username=username, password=password)
-#         print(student)
-#         if student:
-#             print("student found")
-#             request.session['username'] = username
-#             request.session['usertype'] = usertype
-#             return render(request, 'student_homepage.html')
-#         else:
-#             print("student not found")
-#
-#     return render(request, 'login_page.html', {'error' : True} )
+
+    current_class_of_course = Class_of_course.objects.get(pk=class_pk)
+    current_student = Student.objects.get( username= username )
+
+
+    if ( not current_student.classes_enrolled_in.filter(pk=class_pk).exists() ) : # student is not enrolled in the class
+        return render(request, 'permission_denied.html')
+
+
+    # user is a student of this class
+    all_forum_post_of_this_class = Forum_post.objects.all().filter(class_of_course=current_class_of_course).order_by(
+        '-date_time')
+    context = {
+        'current_class_of_course': current_class_of_course,
+        'all_forum_post_of_this_class': all_forum_post_of_this_class,
+    }
+
+
+    return render(request, 'student_see_class_forum.html', context)
+
+
+
+

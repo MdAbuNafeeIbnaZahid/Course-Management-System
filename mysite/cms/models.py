@@ -150,10 +150,13 @@ class Class_of_course(models.Model):
 
 class Forum_post(models.Model):
     teacher = models.ForeignKey(Teacher)
-    clas_of_course = models.ForeignKey( Class_of_course )
+    class_of_course = models.ForeignKey(Class_of_course)
     headline = models.CharField( max_length=999, blank=True )
     text = models.TextField( max_length=9999, blank=True )
     date_time = models.DateTimeField(null=True)
+
+
+
 
 
 ########  I am skipping Department head log table. I think it is unnecessary.

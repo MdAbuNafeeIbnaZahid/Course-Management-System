@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import ModelForm, PasswordInput
 from .models import Department, Teacher, Student, Course, Class_of_course, \
-    Enrolment, Question_of_vote, Option_of_vote, Response_of_vote, User
+    Enrolment, Question_of_vote, Option_of_vote, Response_of_vote, User, Forum_post
 
 
 class StudentAdminForm(ModelForm):
@@ -41,3 +41,4 @@ admin.site.register( Enrolment )
 admin.site.register( Question_of_vote )
 admin.site.register( Option_of_vote )
 admin.site.register( Response_of_vote )
+admin.site.register( Forum_post )

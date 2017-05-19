@@ -1,0 +1,26 @@
+{% comment %}
+current_class_of_course,
+all_forum_post_of_this_class,
+teacher_post_in_class_forum_form
+{% endcomment %}
+
+{% include  'includes/student_navigation.html' %}
+
+<h1> Forum posts of {{ current_class_of_course }} </h1>
+{% if all_forum_post_of_this_class %}
+    {% for fp in all_forum_post_of_this_class %}
+        <br>
+        <br>
+        <b> {{ fp.headline }} </b>
+        <br>
+        {{ fp.teacher }}
+        <br>
+        {{ fp.date_time }}
+        <br>
+        {{ fp.text }}
+        <br>
+        <br>
+    {% endfor %}
+{% endif %}
+
+
