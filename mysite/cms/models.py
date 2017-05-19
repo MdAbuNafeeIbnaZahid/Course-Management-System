@@ -147,6 +147,13 @@ class Class_of_course(models.Model):
         return ret
 
 
+
+class Forum_post(models.Model):
+    teacher = models.ForeignKey(Teacher)
+    clas_of_course = models.ForeignKey( Class_of_course )
+    text = models.CharField( max_length=9999 )
+
+
 ########  I am skipping Department head log table. I think it is unnecessary.
 
 

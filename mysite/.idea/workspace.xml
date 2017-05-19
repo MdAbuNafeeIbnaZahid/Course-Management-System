@@ -30,11 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="hod_approve_enrolment.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="hod_approve_enrolment.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/templates/hod_approve_enrolment.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="608">
               <caret line="43" column="9" lean-forward="false" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="teacher_see_list_of_classes_assigned_to.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms/templates/teacher_see_list_of_classes_assigned_to.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -80,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cms/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1580">
-              <caret line="65" column="70" lean-forward="true" selection-start-line="65" selection-start-column="70" selection-end-line="65" selection-end-column="70" />
+            <state relative-caret-position="692">
+              <caret line="153" column="46" lean-forward="false" selection-start-line="153" selection-start-column="46" selection-end-line="153" selection-end-column="46" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#3100#3186#0" expanded="false" />
@@ -113,16 +123,6 @@
               <folding>
                 <element signature="e#640#681#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin_navigation.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cms/templates/includes/admin_navigation.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -196,15 +196,15 @@
         <option value="$PROJECT_DIR$/cms/templates/add_new_teacher.html" />
         <option value="$PROJECT_DIR$/cms/templates/includes/set_department_head.html" />
         <option value="$PROJECT_DIR$/cms/templates/includes/admin_navigation.html" />
-        <option value="$PROJECT_DIR$/cms/models.py" />
         <option value="$PROJECT_DIR$/cms/admin.py" />
         <option value="$PROJECT_DIR$/cms/templates/admin_set_department_head.html" />
-        <option value="$PROJECT_DIR$/cms/templates/teacher_see_list_of_classes_assigned_to.html" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
         <option value="$PROJECT_DIR$/cms/templates/includes/teacher_navigation.html" />
         <option value="$PROJECT_DIR$/cms/forms.py" />
         <option value="$PROJECT_DIR$/cms/views.py" />
         <option value="$PROJECT_DIR$/cms/templates/hod_approve_enrolment.html" />
+        <option value="$PROJECT_DIR$/cms/templates/teacher_see_list_of_classes_assigned_to.html" />
+        <option value="$PROJECT_DIR$/cms/models.py" />
       </list>
     </option>
   </component>
@@ -999,14 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/teacher_see_list_of_classes_assigned_to.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mysite/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-848">
@@ -1036,17 +1028,6 @@
         <state relative-caret-position="84">
           <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1580">
-          <caret line="65" column="70" lean-forward="true" selection-start-line="65" selection-start-column="70" selection-end-line="65" selection-end-column="70" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#3100#3186#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1117,6 +1098,25 @@
         <state relative-caret-position="608">
           <caret line="43" column="9" lean-forward="false" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/teacher_see_list_of_classes_assigned_to.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="9" lean-forward="false" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="692">
+          <caret line="153" column="46" lean-forward="false" selection-start-line="153" selection-start-column="46" selection-end-line="153" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#3100#3186#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
