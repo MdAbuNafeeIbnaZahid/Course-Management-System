@@ -102,7 +102,8 @@ class Student(User):
 
     def __str__(self):
         user_string = super(Student, self).__str__()
-        return user_string
+        ret = user_string + ' std_id = ' + self.studentId + '; '
+        return ret
 
 
 

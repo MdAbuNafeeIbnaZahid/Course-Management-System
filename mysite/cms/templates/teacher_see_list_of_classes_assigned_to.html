@@ -15,4 +15,6 @@ all_classes_current_teacher_assigned_to
     <br>
     <a href="{% url 'teacher_post_in_class_forum' cl.pk %}" > Forum </a>
     <br>
+    <a href="{% url 'teacher_see_list_of_students_in_class' cl.pk %}" > Student List </a>
+    <br>
 {% endfor %}

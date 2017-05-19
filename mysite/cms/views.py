@@ -708,9 +708,33 @@ def student_see_class_forum(request, class_pk) :
         'all_forum_post_of_this_class': all_forum_post_of_this_class,
     }
 
-
     return render(request, 'student_see_class_forum.html', context)
 
 
+def teacher_see_list_of_students_in_class(request, class_pk) :
+    print('start of teacher_post_in_class_forum')
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'TEACHER'):  # Non Teacher
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
+
+    current_class_of_course = Class_of_course.objects.get(pk=class_pk)
+    print('current_class_of_course = ' + str(current_class_of_course))
+    current_teacher = Teacher.objects.get(username=username)
+    print('current_teacher = ' + str(current_teacher))
+
+    if (not current_class_of_course.class_teacher.all().filter(username=username).exists()):
+        print('current teacher is not assigned to this course')
+        return render(request, 'permission_denied.html')
+
+
+    # user is a teacher of this class
+    all_approved_enrolments_of_this_class = Enrolment.objects.all().filter(class_of_course=current_class_of_course,
+                                                                          approval_status=Enrolment.APPROVED)
+    context = { 'all_approved_enrolments_of_this_class' : all_approved_enrolments_of_this_class,
+                'current_class_of_course' : current_class_of_course,
+                }
+    return render(request, 'teacher_see_list_of_students_in_class.html', context)
 
 

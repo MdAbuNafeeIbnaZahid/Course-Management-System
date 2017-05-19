@@ -1,0 +1,14 @@
+{% comment %}
+all_approved_enrolments_of_this_class,
+current_class_of_course,
+{% endcomment %}
+
+
+{% include 'includes/teacher_navigation.html' %}
+
+<h3> Approved students in {{ current_class_of_course }} </h3>
+{% for en in all_approved_enrolments_of_this_class %}
+    <br>
+    {{ en.student }}
+    <br>
+{% endfor %}
