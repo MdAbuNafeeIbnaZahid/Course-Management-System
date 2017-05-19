@@ -11,4 +11,6 @@ current_class_of_course,
     <br>
     {{ en.student }}
     <br>
+    <a href="{% url 'teacher_set_mark_of_an_enrolment' en.pk %}" > Give mark </a>
+    <br>
 {% endfor %}

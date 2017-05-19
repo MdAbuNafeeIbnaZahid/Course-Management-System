@@ -101,3 +101,9 @@ class teacher_post_in_class_forum_form(forms.ModelForm) :
     class Meta:
         model = Forum_post
         fields = [ 'headline', 'text' ]
+
+
+class teacher_set_mark_of_a_enrolment_form(forms.ModelForm) :
+    class Meta:
+        model = Enrolment
+        exclude = ['student', 'class_of_course', 'approval_status']

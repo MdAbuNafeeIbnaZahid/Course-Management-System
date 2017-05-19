@@ -27,7 +27,7 @@ from cms.models import Teacher, Student, User, Department, Course, Class_of_cour
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
     student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
-    teacher_post_in_class_forum_form
+    teacher_post_in_class_forum_form, teacher_set_mark_of_a_enrolment_form
 
 
 
@@ -731,10 +731,49 @@ def teacher_see_list_of_students_in_class(request, class_pk) :
 
     # user is a teacher of this class
     all_approved_enrolments_of_this_class = Enrolment.objects.all().filter(class_of_course=current_class_of_course,
-                                                                          approval_status=Enrolment.APPROVED)
+                                            approval_status=Enrolment.APPROVED).order_by('student__studentId')
+    # all_approved_enrolments_of_this_class is sorted by studentId
     context = { 'all_approved_enrolments_of_this_class' : all_approved_enrolments_of_this_class,
                 'current_class_of_course' : current_class_of_course,
                 }
     return render(request, 'teacher_see_list_of_students_in_class.html', context)
 
 
+def teacher_set_mark_of_an_enrolment(request, enrolment_pk) :
+    print('start of teacher_post_in_class_forum')
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'TEACHER'):  # Non Teacher
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
+
+    current_enrolment = Enrolment.objects.get(pk=enrolment_pk)
+    current_class_of_course = current_enrolment.class_of_course
+
+    current_teacher = Teacher.objects.get(username=username)
+    print('current_teacher = ' + str(current_teacher))
+
+    if (not current_class_of_course.class_teacher.all().filter(username=username).exists()):
+        print('current teacher is not assigned to this course')
+        return render(request, 'permission_denied.html')
+
+
+    # user is a teacher of this class
+    form = teacher_set_mark_of_a_enrolment_form(instance=current_enrolment)
+    context = {'teacher_set_mark_of_a_enrolment_form' : form,
+               'current_enrolment' : current_enrolment,
+               }
+    if ( request.method != 'POST' ): # teacher just loaded the page, didn't click on the update marks
+        return render(request, 'teacher_set_mark_of_an_enrolment.html', context)
+
+
+    # teacher clicked on the update marks button
+    submitted_form = teacher_set_mark_of_a_enrolment_form(request.POST or None, instance=current_enrolment)
+
+    if ( submitted_form.is_valid() ) :
+        submitted_form.save()
+        form = teacher_set_mark_of_a_enrolment_form(instance=current_enrolment)
+        context = {'teacher_set_mark_of_a_enrolment_form': form,
+                   'current_enrolment': current_enrolment,
+                   }
+        return render(request, 'teacher_set_mark_of_an_enrolment.html', context)

@@ -1,0 +1,25 @@
+{% comment %}
+teacher_set_mark_of_a_enrolment_form,
+current_enrolment,
+{% endcomment %}
+
+
+{% include 'includes/teacher_navigation.html' %}
+
+
+<h3> {{ current_enrolment.student }} </h3>
+<h3> {{ current_enrolment.class_of_course }} </h3>
+
+{% if teacher_set_mark_of_a_enrolment_form %}
+    <br>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table>
+    {{ teacher_set_mark_of_a_enrolment_form }}
+    </table>
+    <input type="submit"  value="Update marks"/>
+    </form>
+
+    <br>
+    <br>
+{% endif %}
