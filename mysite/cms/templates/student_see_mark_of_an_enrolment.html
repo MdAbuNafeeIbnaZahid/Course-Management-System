@@ -1,0 +1,15 @@
+{% comment %}
+student_see_mark_of_an_enrolment_form,
+
+{% endcomment %}
+
+{% include 'includes/student_navigation.html' %}
+
+{% if student_see_mark_of_an_enrolment_form %}
+    <br>
+    {% csrf_token %}
+    <table>
+    {{ student_see_mark_of_an_enrolment_form }}
+    </table>
+    <br>
+{% endif %}

@@ -22,7 +22,8 @@ from mysite.views import hello, my_homepage_view, default_view, current_datetime
 from cms.views import handle_log_in, handle_log_out, handle_update_profile, handle_change_password, handle_add_department, \
     handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class, \
     handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
-    teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment
+    teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment, \
+    student_see_mark_of_an_enrolment
 
 urlpatterns = [
 
@@ -60,6 +61,8 @@ urlpatterns = [
     # student part
     url( r'^student-enrol-in-class', handle_student_enrol_in_class, name='handle_student_enrol_in_class' ),
     url(r'^student-see-class-forum/(?P<class_pk>[0-9]+)/$', student_see_class_forum, name='student_see_class_forum'),
+    url(r'^student-see-mark-of-an-enrolment/(?P<enrolment_pk>[0-9]+)/$', student_see_mark_of_an_enrolment,
+        name='student_see_mark_of_an_enrolment'),
 
 
 

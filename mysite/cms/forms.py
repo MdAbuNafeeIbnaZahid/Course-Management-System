@@ -103,7 +103,42 @@ class teacher_post_in_class_forum_form(forms.ModelForm) :
         fields = [ 'headline', 'text' ]
 
 
-class teacher_set_mark_of_a_enrolment_form(forms.ModelForm) :
+class teacher_set_mark_of_an_enrolment_form(forms.ModelForm) :
     class Meta:
         model = Enrolment
-        exclude = ['student', 'class_of_course', 'approval_status']
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(teacher_set_mark_of_an_enrolment_form, self).__init__(*args, **kwargs)
+        self.fields['student'].disabled = True
+        self.fields['class_of_course'].disabled = True
+        self.fields['approval_status'].disabled = True
+
+
+class student_see_mark_of_an_enrolment_form(forms.ModelForm) :
+    class Meta:
+        model = Enrolment
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(student_see_mark_of_an_enrolment_form, self).__init__(*args, **kwargs)
+        self.fields['student'].disabled = True
+        self.fields['class_of_course'].disabled = True
+        self.fields['approval_status'].disabled = True
+        self.fields['ct1_marks'].disabled = True
+        self.fields['ct2_marks'].disabled = True
+        self.fields['ct3_marks'].disabled = True
+        self.fields['ct4_marks'].disabled = True
+        self.fields['ct5_marks'].disabled = True
+        self.fields['ct6_marks'].disabled = True
+        self.fields['assignment1_marks'].disabled = True
+        self.fields['assignment2_marks'].disabled = True
+        self.fields['assignment3_marks'].disabled = True
+        self.fields['attendance_marks'].disabled = True
+        self.fields['term_final_marks'].disabled = True
+        self.fields['viva1_marks'].disabled = True
+        self.fields['viva2_marks'].disabled = True
+        self.fields['experiment_marks'].disabled = True
+        self.fields['other'].disabled = True
+        self.fields['final_out_of_hundred'].disabled = True
+
