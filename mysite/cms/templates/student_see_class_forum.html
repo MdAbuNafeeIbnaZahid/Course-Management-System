@@ -19,6 +19,10 @@ teacher_post_in_class_forum_form
         <br>
         {{ fp.text }}
         <br>
+        {% if fp.document %}
+            <a href="{% url 'serve_file_of_forum_post' fp.pk %}" > {{ fp.document }} </a>
+        {% endif %}
+        <br>
         <br>
     {% endfor %}
 {% endif %}
