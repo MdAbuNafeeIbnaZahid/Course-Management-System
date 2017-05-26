@@ -155,6 +155,7 @@ class Forum_post(models.Model):
     headline = models.CharField( max_length=999, blank=True )
     text = models.TextField( max_length=9999, blank=True )
     date_time = models.DateTimeField(null=True)
+    document = models.FileField(upload_to='forum_post/', null=True)
 
 
 
