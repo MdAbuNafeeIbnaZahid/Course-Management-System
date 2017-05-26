@@ -678,7 +678,7 @@ def teacher_post_in_class_forum(request, class_pk) :
 
 
     # user clicked on the post button
-    submitted_form = teacher_post_in_class_forum_form(request.POST)
+    submitted_form = teacher_post_in_class_forum_form(request.POST, request.FILES)
 
     new_post = submitted_form.save(commit=False)
 
@@ -807,3 +807,10 @@ def student_see_mark_of_an_enrolment(request, enrolment_pk) :
     form = student_see_mark_of_an_enrolment_form(instance=current_enrolment)
     context = { 'student_see_mark_of_an_enrolment_form' : form, }
     return render(request, 'student_see_mark_of_an_enrolment.html', context)
+
+
+def serve_file_of_forum_post(request, forum_post_pk):
+    current_forum_post = Forum_post.objects.get(pk=forum_post_pk)
+    response = HttpResponse(current_forum_post.document, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=download'
+    return response

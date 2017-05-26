@@ -23,7 +23,7 @@ from cms.views import handle_log_in, handle_log_out, handle_update_profile, hand
     handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class, \
     handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
     teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment, \
-    student_see_mark_of_an_enrolment
+    student_see_mark_of_an_enrolment, serve_file_of_forum_post
 
 urlpatterns = [
 
@@ -47,6 +47,8 @@ urlpatterns = [
     url(r'^change-password', handle_change_password, name='handle_change_password'),
     url(r'^update-profile', handle_update_profile, name='handle_update_profile'),
 
+    ###### download part
+    url(r'^media/forum_post/(?P<forum_post_pk>[0-9]+)/$', serve_file_of_forum_post, name='serve_file_of_forum_post'),
 
 
     # admin part

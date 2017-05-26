@@ -10,7 +10,7 @@ teacher_post_in_class_forum_form
     <br>
     <br>
     <h1> Post in the forum </h1>
-    <form method="post" action="">
+    <form method="post" action="" enctype="multipart/form-data" >
     {% csrf_token %}
     <table>
     {{ teacher_post_in_class_forum_form }}
@@ -34,6 +34,10 @@ teacher_post_in_class_forum_form
         {{ fp.date_time }}
         <br>
         {{ fp.text }}
+        <br>
+        {% if fp.document %}
+            <a href="{% url 'serve_file_of_forum_post' fp.pk %}" > {{ fp.document }} </a>
+        {% endif %}
         <br>
         <br>
     {% endfor %}
