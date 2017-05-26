@@ -45,7 +45,16 @@ def handle_log_in(request, **kwargs):
 
     current_username = request.session.get( 'username', None )
 
+
+    # I am not sure why requst.session.get is returning an empty string instead of None
+    # I need the if block to handle empty string
+    if ( current_username == "" ) :
+        current_username = None
+
+
     print('current_username = ' + str(current_username) )
+
+
 
     if ( current_username is not None ): # user already logged in
         current_user = User.objects.get(username= current_username )
