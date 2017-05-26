@@ -100,7 +100,7 @@ class hod_approve_enrolment_form(forms.Form) :
 class teacher_post_in_class_forum_form(forms.ModelForm) :
     class Meta:
         model = Forum_post
-        fields = [ 'headline', 'text' ]
+        fields = [ 'headline', 'text', 'document' ]
 
 
 class teacher_set_mark_of_an_enrolment_form(forms.ModelForm) :

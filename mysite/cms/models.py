@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 
 
 # Create your models here.
@@ -152,8 +152,8 @@ class Class_of_course(models.Model):
 class Forum_post(models.Model):
     teacher = models.ForeignKey(Teacher)
     class_of_course = models.ForeignKey(Class_of_course)
-    headline = models.CharField( max_length=999, blank=True )
-    text = models.TextField( max_length=9999, blank=True )
+    headline = models.CharField( max_length=999, validators=[MinLengthValidator(1)] )
+    text = models.TextField( max_length=9999, validators=[MinLengthValidator(1)] )
     date_time = models.DateTimeField(null=True)
     document = models.FileField(upload_to='forum_post/', null=True)
 
