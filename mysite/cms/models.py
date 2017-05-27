@@ -233,3 +233,18 @@ class Response_of_vote(models.Model):
         unique_together = ( ('question', 'teacher', 'student'), )
 
 
+
+
+class Submission_window(models.Model):
+    teacher = models.ForeignKey(Teacher)
+    class_of_course = models.ForeignKey(Class_of_course)
+    headline = models.CharField(max_length=999, validators=[MinLengthValidator(1)])
+    body = models.TextField(max_length=9999, validators=[MinLengthValidator(1)])
+    end_time = models.DateTimeField()
+
+
+
+class Submission(models.Model):
+    student = models.ForeignKey(Student)
+    submission_window = models.ForeignKey(Submission_window)
+    document = models.FileField(upload_to='submission/', null=True)
