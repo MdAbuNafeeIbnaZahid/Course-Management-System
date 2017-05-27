@@ -811,6 +811,6 @@ def student_see_mark_of_an_enrolment(request, enrolment_pk) :
 
 def serve_file_of_forum_post(request, forum_post_pk):
     current_forum_post = Forum_post.objects.get(pk=forum_post_pk)
-    response = HttpResponse(current_forum_post.document, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=download'
+    response = HttpResponse(current_forum_post.document, content_type='')
+    response['Content-Disposition'] = ('attachment; filename=' + current_forum_post.document.name )
     return response
