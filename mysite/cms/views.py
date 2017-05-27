@@ -23,11 +23,13 @@ from mysite.forms import ContactForm
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
-from cms.models import Teacher, Student, User, Department, Course, Class_of_course, Enrolment, Forum_post
+from cms.models import Teacher, Student, User, Department, Course, Class_of_course, \
+    Enrolment, Forum_post, Submission, Submission_window
 from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
     student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
-    teacher_post_in_class_forum_form, teacher_set_mark_of_an_enrolment_form, student_see_mark_of_an_enrolment_form
+    teacher_post_in_class_forum_form, teacher_set_mark_of_an_enrolment_form, student_see_mark_of_an_enrolment_form, \
+    Teacher_add_submission_window_form
 
 
 
@@ -814,3 +816,45 @@ def serve_file_of_forum_post(request, forum_post_pk):
     response = HttpResponse(current_forum_post.document, content_type='')
     response['Content-Disposition'] = ('attachment; filename=' + current_forum_post.document.name )
     return response
+
+
+def teacher_add_submission_window(request, class_pk):
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'TEACHER'):  # Non Teacher
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
+
+    current_class_of_course = Class_of_course.objects.get(pk=class_pk)
+    print('current_class_of_course = ' + str(current_class_of_course))
+    current_teacher = Teacher.objects.get(username=username)
+    print('current_teacher = ' + str(current_teacher))
+
+    if (not current_class_of_course.class_teacher.all().filter(username=username).exists()):
+        print('current teacher is not assigned to this course')
+        return render(request, 'permission_denied.html')
+
+
+    # user is a teacher of this class
+
+
+    current_time = datetime.datetime.now()
+    all_submission_windows = Submission_window.objects.all()
+    all_submission_windows_of_this_class = all_submission_windows.filter(class_of_course=current_class_of_course).order_by('-end_time')
+    live_submission_windows_of_this_class = all_submission_windows_of_this_class.filter(end_time__gt=current_time)
+
+
+    form = Teacher_add_submission_window_form()
+
+    context = {
+        'current_time' : current_time,
+        'current_class_of_course' : current_class_of_course,
+        'all_submission_windows_of_this_class' : all_submission_windows_of_this_class,
+        'Teacher_add_submission_window_form' : form,
+    }
+
+    if ( request.method != 'POST' ) :
+        # teacher just loaded the page. didn't click on add button
+        return  render(request, 'teacher_add_submission_window.html', context)
+
+

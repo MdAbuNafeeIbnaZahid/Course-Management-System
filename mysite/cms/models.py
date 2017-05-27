@@ -243,8 +243,18 @@ class Submission_window(models.Model):
     end_time = models.DateTimeField()
 
 
+    def __str__(self):
+        return 'Teacher = ' + self.teacher + '; class_of_course = ' + self.class_of_course + \
+            '; headline = ' + self.headline + '; body = ' + self.body + '; end_time = ' + \
+            self.end_time + '; '
+
+
 
 class Submission(models.Model):
     student = models.ForeignKey(Student)
     submission_window = models.ForeignKey(Submission_window)
     document = models.FileField(upload_to='submission/', null=True)
+
+    def __str__(self):
+        return 'student = ' + self.student + '; submission_window = ' + self.submission_window + \
+                '; document = ' + self.document + '; '

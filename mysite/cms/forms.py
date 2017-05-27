@@ -1,5 +1,8 @@
 from django import forms
-from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department, Forum_post
+from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department, Forum_post, Submission, Submission_window
+
+
+from django.contrib.admin import widgets
 
 class Student_profile_form(forms.ModelForm):
     class Meta:
@@ -142,3 +145,19 @@ class student_see_mark_of_an_enrolment_form(forms.ModelForm) :
         self.fields['other'].disabled = True
         self.fields['final_out_of_hundred'].disabled = True
 
+
+
+class Teacher_add_submission_window_form(forms.ModelForm) :
+    class Meta:
+        model = Submission_window
+        fields = ['headline', 'body', 'end_time', ]
+    #     # widgets = {
+    #     #     'end_time': forms.DateTimeBaseInput(),
+    #     #     # 'email_address' : forms.EmailField(),
+    #     # }
+    #
+    #
+
+    def __init__(self, *args, **kwargs):
+        super(Teacher_add_submission_window_form, self).__init__(*args, **kwargs)
+        self.fields['end_time'].label = 'End time (format 2006-10-25 14:30)'

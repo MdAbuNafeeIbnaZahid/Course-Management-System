@@ -23,7 +23,7 @@ from cms.views import handle_log_in, handle_log_out, handle_update_profile, hand
     handle_add_new_student, handle_add_new_course, handle_add_new_class_of_course, handle_student_enrol_in_class, \
     handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
     teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment, \
-    student_see_mark_of_an_enrolment, serve_file_of_forum_post
+    student_see_mark_of_an_enrolment, serve_file_of_forum_post, teacher_add_submission_window
 
 urlpatterns = [
 
@@ -77,6 +77,7 @@ urlpatterns = [
         name='teacher_see_list_of_students_in_class'),
     url(r'teacher-set-mark-of-an-enrolment/(?P<enrolment_pk>[0-9]+)/$', teacher_set_mark_of_an_enrolment,
         name='teacher_set_mark_of_an_enrolment'),
+    url(r'teacher-add-submission-window/(?P<class_pk>[0-9]+)/$', teacher_add_submission_window, name='teacher_add_submission_window'),
 
 
 

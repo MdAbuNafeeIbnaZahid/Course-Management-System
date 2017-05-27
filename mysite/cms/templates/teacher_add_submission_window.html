@@ -1,0 +1,56 @@
+{% comment %}
+'current_time' : current_time,
+'current_class_of_course' : current_class_of_course,
+'all_submission_windows_of_this_class' : all_submission_windows_of_this_class,
+'Teacher_add_submission_window_form' : form,
+{% endcomment %}
+
+
+<script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
+
+
+
+{% include  'includes/teacher_navigation.html' %}
+
+{% if Teacher_add_submission_window_form %}
+    <br>
+    <br>
+    <h1> Add a submission window </h1>
+    <form method="post" action=""  >
+    {% csrf_token %}
+    <table>
+    {{ Teacher_add_submission_window_form }}
+    </table>
+    <input type="submit" value="Add"/>
+    </form>
+
+    <br>
+    <br>
+{% endif %}
+
+
+<h1> Submission windows of {{ current_class_of_course }} </h1>
+{% if all_submission_windows_of_this_class %}
+    {% for sw in all_submission_windows_of_this_class %}
+        <br>
+        <br>
+        <b> {{ sw.headline }} </b>
+        <br>
+        {{ sw.teacher }}
+        <br>
+        {{ sw.end_time }}
+        <br>
+        {{ sw.body }}
+        <br>
+        <br>
+        <br>
+    {% endfor %}
+{% endif %}
+
+
