@@ -844,6 +844,7 @@ def teacher_add_submission_window(request, class_pk):
     live_submission_windows_of_this_class = all_submission_windows_of_this_class.filter(end_time__gt=current_time)
 
 
+    new_submission_window = Submission_window(teacher=current_teacher, class_of_course=current_class_of_course)
     form = Teacher_add_submission_window_form()
 
     context = {
@@ -858,3 +859,34 @@ def teacher_add_submission_window(request, class_pk):
         return  render(request, 'teacher_add_submission_window.html', context)
 
 
+    # if ( not form.is_valid() ) :
+    #     context['error_message'] = 'Form is not valid'
+    #     return render(request, 'teacher_add_submission_window.html', context)
+
+    headline = request.POST.get('headline', None)
+    print('headline = ' + headline)
+    body = request.POST.get('body', None)
+    end_time = request.POST.get('end_time', None)
+    print(end_time)
+
+
+    new_submission_window = Submission_window( teacher=current_teacher, class_of_course=current_class_of_course,
+                                               headline=headline, body=body, end_time=end_time)
+
+    new_submission_window.save()
+
+    print('new_submission_window saved')
+
+
+    approved_students_of_current_class = current_class_of_course.student_set.all().filter(enrolment__approval_status=Enrolment.APPROVED)
+
+    for student in approved_students_of_current_class :
+        new_submission = Submission(submission_window=new_submission_window, student=student)
+        new_submission.save()
+
+
+    print('new_submission saved for all students')
+
+    # new_submission_window = Submission_window(teacher=current_teacher, class_of_course=current_class_of_course)
+    # form = Teacher_add_submission_window_form(instance=new_submission_window)
+    return render(request, 'teacher_add_submission_window.html', context)

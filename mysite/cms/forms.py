@@ -1,6 +1,6 @@
 from django import forms
 from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department, Forum_post, Submission, Submission_window
-
+import datetime
 
 from django.contrib.admin import widgets
 
@@ -147,17 +147,38 @@ class student_see_mark_of_an_enrolment_form(forms.ModelForm) :
 
 
 
-class Teacher_add_submission_window_form(forms.ModelForm) :
-    class Meta:
-        model = Submission_window
-        fields = ['headline', 'body', 'end_time', ]
-    #     # widgets = {
-    #     #     'end_time': forms.DateTimeBaseInput(),
-    #     #     # 'email_address' : forms.EmailField(),
-    #     # }
-    #
-    #
+# class Teacher_add_submission_window_form(forms.ModelForm) :
+#     class Meta:
+#         model = Submission_window
+#         fields = '__all__'
+#     #     # widgets = {
+#     #     #     'end_time': forms.DateTimeBaseInput(),
+#     #     #     # 'email_address' : forms.EmailField(),
+#     #     # }
+#     #
+#     #
+#
+#     def __init__(self, *args, **kwargs):
+#         super(Teacher_add_submission_window_form, self).__init__(*args, **kwargs)
+#         self.fields['end_time'].label = 'End time (format 2006-10-25 14:30)'
+#         self.fields['teacher'].disabled = True
+#         self.fields['class_of_course'].disabled = True
+#
+#
 
-    def __init__(self, *args, **kwargs):
-        super(Teacher_add_submission_window_form, self).__init__(*args, **kwargs)
-        self.fields['end_time'].label = 'End time (format 2006-10-25 14:30)'
+
+
+class Teacher_add_submission_window_form(forms.Form) :
+    headline = forms.CharField(min_length=1)
+    body = forms.CharField(min_length=1, widget=forms.Textarea)
+    end_time = forms.DateTimeField(input_formats=['%Y-%m-%d %H:%M'])
+
+    def clean_end_time(self):
+        try:
+            end_time = self.cleaned_data['date']
+            if ( end_time < datetime.date.today() ):
+                raise forms.ValidationError('Invalid date')
+        except:
+            raise forms.ValidationError('Invalid date')
+
+        return end_time

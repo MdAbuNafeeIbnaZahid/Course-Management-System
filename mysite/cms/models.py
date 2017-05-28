@@ -236,17 +236,17 @@ class Response_of_vote(models.Model):
 
 
 class Submission_window(models.Model):
-    teacher = models.ForeignKey(Teacher)
-    class_of_course = models.ForeignKey(Class_of_course)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    class_of_course = models.ForeignKey(Class_of_course, on_delete=models.CASCADE)
     headline = models.CharField(max_length=999, validators=[MinLengthValidator(1)])
     body = models.TextField(max_length=9999, validators=[MinLengthValidator(1)])
     end_time = models.DateTimeField()
 
 
     def __str__(self):
-        return 'Teacher = ' + self.teacher + '; class_of_course = ' + self.class_of_course + \
+        return 'Teacher = ' + str(self.teacher) + '; class_of_course = ' + str(self.class_of_course) + \
             '; headline = ' + self.headline + '; body = ' + self.body + '; end_time = ' + \
-            self.end_time + '; '
+               str(self.end_time) + '; '
 
 
 
@@ -256,5 +256,5 @@ class Submission(models.Model):
     document = models.FileField(upload_to='submission/', null=True)
 
     def __str__(self):
-        return 'student = ' + self.student + '; submission_window = ' + self.submission_window + \
-                '; document = ' + self.document + '; '
+        return 'student = ' + str(self.student) + '; submission_window = ' + str(self.submission_window) + \
+                '; document = ' + str(self.document) + '; '

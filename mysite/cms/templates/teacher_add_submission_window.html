@@ -3,6 +3,8 @@
 'current_class_of_course' : current_class_of_course,
 'all_submission_windows_of_this_class' : all_submission_windows_of_this_class,
 'Teacher_add_submission_window_form' : form,
+error_message,
+
 {% endcomment %}
 
 
@@ -17,6 +19,14 @@
 
 
 {% include  'includes/teacher_navigation.html' %}
+
+<br>
+<br>
+<br>
+
+{% if error_message %}
+    <b> {{ error_message }} </b>
+{% endif %}
 
 {% if Teacher_add_submission_window_form %}
     <br>
