@@ -1,6 +1,7 @@
 from django import forms
 from cms.models import Student, User, Course, Class_of_course, Enrolment, Teacher, Department, Forum_post, Submission, Submission_window
-import datetime
+import datetime, pytz
+from pytz import timezone
 
 from django.contrib.admin import widgets
 
@@ -173,12 +174,71 @@ class Teacher_add_submission_window_form(forms.Form) :
     body = forms.CharField(min_length=1, widget=forms.Textarea)
     end_time = forms.DateTimeField(input_formats=['%Y-%m-%d %H:%M'])
 
-    def clean_end_time(self):
-        try:
-            end_time = self.cleaned_data['date']
-            if ( end_time < datetime.date.today() ):
-                raise forms.ValidationError('Invalid date')
-        except:
-            raise forms.ValidationError('Invalid date')
 
-        return end_time
+    def __init__(self, *args, **kwargs):
+        super(Teacher_add_submission_window_form, self).__init__(*args, **kwargs)
+
+    # def clean_end_time(self):
+    #     print('inside clean_end_time')
+    #     try:
+    #         end_time = self.cleaned_data['end_time']
+    #         localtz = timezone('Asia/Dhaka')
+    #         end_time = localtz.localize(end_time)
+    #
+    #         if ( end_time < datetime.datetime.now() ):
+    #             raise forms.ValidationError('Invalid date')
+    #     except:
+    #         raise forms.ValidationError('Invalid date')
+    #
+    #     return end_time
+
+
+    # def clean(self):
+    #     print('inside clean method of Teacher_add_submission_window_form')
+    #     cleaned_data = super(Teacher_add_submission_window_form, self).clean()
+    #
+    #
+    #     end_time = cleaned_data.get('end_time', None)
+    #
+    #     localtz = timezone('Asia/Dhaka')
+    #     # end_time = localtz.localize( cleaned_data['end_time'] )
+    #
+    #
+    #     if ( end_time < datetime.datetime.now() ) :
+    #         print('raising form error...  end_time < datetime.datetime.now()   ')
+    #         raise forms.ValidationError('Invalid date time')
+    #
+    #     self.cleaned_data['end_time'] = end_time
+    #
+    #
+    #
+    #     return self.cleaned_data
+
+
+
+
+
+
+    # def clean(self):
+    #     print('inside clean method of Teacher_add_submission_window_form')
+    #     cleaned_data = super(Teacher_add_submission_window_form, self).clean()
+    #
+    #     try :
+    #         end_time = cleaned_data.get('end_time', None)
+    #         print('end_time = ' + str(end_time) )
+    #         localtz = timezone('Asia/Dhaka')
+    #         print('localtz = ' + str(localtz) )
+    #
+    #         print('end_time = ' + str(end_time) )
+    #
+    #         if ( end_time < timezone.now() ) :
+    #             print('raising form error...  end_time < datetime.datetime.now()   ')
+    #             raise forms.ValidationError('Invalid date time')
+    #
+    #         self.cleaned_data['end_time'] = end_time
+    #
+    #     except :
+    #         print('raising form error....   in except')
+    #         raise forms.ValidationError('Invalid date time')
+    #
+    #     return self.cleaned_data

@@ -858,7 +858,8 @@ def teacher_add_submission_window(request, class_pk):
         # teacher just loaded the page. didn't click on add button
         return  render(request, 'teacher_add_submission_window.html', context)
 
-
+    # form = Teacher_add_submission_window_form(request.POST)
+    #
     # if ( not form.is_valid() ) :
     #     context['error_message'] = 'Form is not valid'
     #     return render(request, 'teacher_add_submission_window.html', context)
@@ -873,7 +874,11 @@ def teacher_add_submission_window(request, class_pk):
     new_submission_window = Submission_window( teacher=current_teacher, class_of_course=current_class_of_course,
                                                headline=headline, body=body, end_time=end_time)
 
-    new_submission_window.save()
+    try :
+        new_submission_window.save()
+    except:
+        context['error_message'] = 'Form is not valid. is date time input correct?'
+        return render(request, 'teacher_add_submission_window.html', context)
 
     print('new_submission_window saved')
 
@@ -890,3 +895,22 @@ def teacher_add_submission_window(request, class_pk):
     # new_submission_window = Submission_window(teacher=current_teacher, class_of_course=current_class_of_course)
     # form = Teacher_add_submission_window_form(instance=new_submission_window)
     return render(request, 'teacher_add_submission_window.html', context)
+
+
+
+def student_see_submissions_of_an_enrolment(request, enrolment_pk):
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'STUDENT'):  # Non Student
+        return render(request, 'permission_denied.html')
+
+    current_enrolment = Enrolment.objects.get(pk=enrolment_pk)
+    current_class_of_course = current_enrolment.class_of_course
+    current_student = Student.objects.get(username=username)
+
+    if (not current_enrolment.student == current_student):  # student is not enrolled in the class
+        return render(request, 'permission_denied.html')
+
+
+    # student is entitled to see submissions
+    return render(request, 'student_see_submissions_of_an_enrolment.html')
