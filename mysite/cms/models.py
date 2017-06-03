@@ -251,8 +251,8 @@ class Submission_window(models.Model):
 
 
 class Submission(models.Model):
-    student = models.ForeignKey(Student)
-    submission_window = models.ForeignKey(Submission_window)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    submission_window = models.ForeignKey(Submission_window, on_delete=models.CASCADE)
     document = models.FileField(upload_to='submission/', null=True)
 
     def __str__(self):

@@ -24,7 +24,7 @@ from cms.views import handle_log_in, handle_log_out, handle_update_profile, hand
     handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
     teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment, \
     student_see_mark_of_an_enrolment, serve_file_of_forum_post, teacher_add_submission_window, \
-    student_see_submissions_of_an_enrolment
+    student_see_submissions_of_an_enrolment, serve_file_of_submission, student_edit_submission
 
 urlpatterns = [
 
@@ -50,6 +50,7 @@ urlpatterns = [
 
     ###### download part
     url(r'^media/forum_post/(?P<forum_post_pk>[0-9]+)/$', serve_file_of_forum_post, name='serve_file_of_forum_post'),
+url(r'^media/submission/(?P<submission_pk>[0-9]+)/$', serve_file_of_submission, name='serve_file_of_submission'),
 
 
     # admin part
@@ -68,6 +69,8 @@ urlpatterns = [
         name='student_see_mark_of_an_enrolment'),
     url(r'^student-see-submissions-of-an-enrolment/(?P<enrolment_pk>[0-9]+)/$', student_see_submissions_of_an_enrolment,
         name='student_see_submissions_of_an_enrolment'),
+    url(r'^student-edit-submission/(?P<submission_pk>[0-9]+)/$', student_edit_submission, name='student_edit_submission'),
+
 
 
 

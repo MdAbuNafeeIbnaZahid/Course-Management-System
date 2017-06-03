@@ -1,6 +1,25 @@
 {% comment %}
+all_this_class_submissions_of_current_student,
+current_class_of_course,
 {% endcomment %}
 
 {% include 'includes/student_navigation.html' %}
 
-<h3> List of submissions </h3>
+<h3> List of submissions of {{ current_class_of_course }} </h3>
+{% for sub in all_this_class_submissions_of_current_student %}
+    <br>
+    {{ sub.submission_window.headline }}
+    <br>
+    {{ sub.submission_window.end_time }}
+    <br>
+    {{ sub.submission_window.body }}
+    <br>
+    {% if sub.document %}
+        <a href="{% url 'serve_file_of_submission' sub.pk %}" > {{ sub.document }} </a>
+        <br>
+        <a href="{% url 'student_edit_submission' sub.pk %}" > Edit the submission </a>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+{% endfor %}

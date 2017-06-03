@@ -29,7 +29,7 @@ from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
     student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
     teacher_post_in_class_forum_form, teacher_set_mark_of_an_enrolment_form, student_see_mark_of_an_enrolment_form, \
-    Teacher_add_submission_window_form
+    Teacher_add_submission_window_form, Student_edit_submission_form
 
 
 
@@ -913,4 +913,80 @@ def student_see_submissions_of_an_enrolment(request, enrolment_pk):
 
 
     # student is entitled to see submissions
-    return render(request, 'student_see_submissions_of_an_enrolment.html')
+    all_submissions = Submission.objects.all().order_by('submission_window__end_time')
+    all_submissions_of_current_student = all_submissions.filter(student=current_student)
+    all_this_class_submissions_of_current_student = all_submissions_of_current_student.filter(submission_window__class_of_course=current_class_of_course)
+    context = {
+        'all_this_class_submissions_of_current_student' : all_this_class_submissions_of_current_student,
+        'current_class_of_course' : current_class_of_course,
+    }
+    return render(request, 'student_see_submissions_of_an_enrolment.html', context)
+
+
+def serve_file_of_submission(request, submission_pk):
+    current_submission = Submission.objects.get(pk=submission_pk)
+    response = HttpResponse(current_submission.document, content_type='')
+    response['Content-Disposition'] = ('attachment; filename=' + current_submission.document.name )
+    return response
+
+
+
+def student_edit_submission(request, submission_pk):
+    current_submission = Submission.objects.get(pk=submission_pk)
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'STUDENT'):  # Non Student
+        return render(request, 'permission_denied.html')
+
+    current_student = Student.objects.get(username=username)
+    current_submission_window = current_submission.submission_window
+    current_class = current_submission_window.class_of_course
+
+    if ( not Enrolment.objects.all().filter(student=current_student, class_of_course=current_class,
+                                            approval_status=Enrolment.APPROVED).exists() ):
+        print('student is not enrolled in this class')
+        return render(request, 'permission_denied.html')
+
+
+    form = Student_edit_submission_form(instance=current_submission)
+    context = {
+        'Student_edit_submission_form' : form,
+        'current_submission' : current_submission,
+    }
+
+    if ( request.method != 'POST' ) : # user just loaded the page. didn't click on the edit button
+        return render(request, 'student_edit_submission.html', context)
+
+
+    # user clicked on the edit button
+    print('user clicked on the edit button')
+    submitted_form = Student_edit_submission_form(request.POST, request.FILES, instance=current_submission)
+    if ( submitted_form.is_valid() ) :
+        submitted_form.save()
+        return render(request, 'student_edit_submission.html', context)
+
+
+
+def teacher_see_submissions_of_a_window(request, submission_window_pk):
+    user_type = request.session.get('user_type', None)
+    username = request.session.get('username', None)
+    if (user_type != 'TEACHER'):  # Non Teacher
+        print('User is not teacher')
+        return render(request, 'permission_denied.html')
+
+    current_submission_window = Submission_window.objects.get(pk=submission_window_pk)
+    current_class_of_course = current_submission_window.class_of_course
+    print('current_class_of_course = ' + str(current_class_of_course))
+    current_teacher = Teacher.objects.get(username=username)
+    print('current_teacher = ' + str(current_teacher))
+
+    if ( current_submission_window.teacher != current_teacher ) :
+        print('current teacher has not opened the submission link')
+        return render(request, 'permission_denied.html')
+
+    all_submissions_of_this_window = current_submission_window.submission_set.all()
+    context = {
+        'all_submissions_of_this_window' : all_submissions_of_this_window ,
+    }
+
+    return render(request, )

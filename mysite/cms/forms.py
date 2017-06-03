@@ -242,3 +242,14 @@ class Teacher_add_submission_window_form(forms.Form) :
     #         raise forms.ValidationError('Invalid date time')
     #
     #     return self.cleaned_data
+
+
+class Student_edit_submission_form(forms.ModelForm):
+    class Meta:
+        model = Submission
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(Student_edit_submission_form, self).__init__(*args, **kwargs)
+        self.fields['student'].disabled = True
+        self.fields['submission_window'].disabled = True

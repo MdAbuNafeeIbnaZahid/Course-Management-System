@@ -1,0 +1,24 @@
+{% comment %}
+Student_edit_submission_formStudent_edit_submission_form,
+current_submission,
+{% endcomment %}
+
+
+{% include 'includes/student_navigation.html' %}
+
+
+{% if Student_edit_submission_form %}
+    <br>
+    <br>
+    <h1> Edit submission </h1>
+    <form method="post" action="" enctype="multipart/form-data" >
+    {% csrf_token %}
+    <table>
+    {{ Student_edit_submission_form}}
+    </table>
+    <input type="submit" value="Edit"/>
+    </form>
+    <br>
+    <br>
+    <br>
+{% endif %}
