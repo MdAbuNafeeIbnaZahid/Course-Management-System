@@ -30,11 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teacher_see_submissions_of_a_window.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="teacher_see_submissions_of_a_window.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/templates/teacher_see_submissions_of_a_window.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="24" column="87" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="87" />
+            <state relative-caret-position="600">
+              <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="student_enrol_in_class.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms/templates/student_enrol_in_class.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="535">
+              <caret line="60" column="52" lean-forward="true" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -65,7 +75,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
               <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-              <folding />
+              <folding>
+                <marker date="1496492939441" expanded="true" signature="312:449" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -75,16 +87,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="12" column="38" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="teacher_post_in_class_forum.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cms/templates/teacher_post_in_class_forum.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -103,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="student_see_submissions_of_an_enrolment.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="student_see_submissions_of_an_enrolment.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="17" column="87" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="87" />
+            <state relative-caret-position="540">
+              <caret line="20" column="83" lean-forward="false" selection-start-line="20" selection-start-column="83" selection-end-line="20" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -212,13 +214,13 @@
         <option value="$PROJECT_DIR$/cms/templates/student_enrol_in_class.html" />
         <option value="$PROJECT_DIR$/cms/templates/includes/student_navigation.html" />
         <option value="$PROJECT_DIR$/cms/forms.py" />
-        <option value="$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html" />
         <option value="$PROJECT_DIR$/cms/templates/student_edit_submission.html" />
         <option value="$PROJECT_DIR$/cms/models.py" />
         <option value="$PROJECT_DIR$/cms/views.py" />
         <option value="$PROJECT_DIR$/cms/templates/teacher_see_submissions_of_a_window.html" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
         <option value="$PROJECT_DIR$/cms/templates/teacher_add_submission_window.html" />
+        <option value="$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html" />
       </list>
     </option>
   </component>
@@ -1012,14 +1014,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/student_enrol_in_class.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="20" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/teacher_post_in_class_forum.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
@@ -1040,7 +1034,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
           <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
-          <folding />
+          <folding>
+            <marker date="1496492939441" expanded="true" signature="312:449" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1060,14 +1056,6 @@
             <element signature="e#0#28#0" expanded="true" />
             <element signature="e#3120#3206#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="87" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="87" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,8 +1089,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/teacher_see_submissions_of_a_window.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="24" column="87" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="87" />
+        <state relative-caret-position="600">
+          <caret line="24" column="26" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/student_enrol_in_class.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="60" column="52" lean-forward="true" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="20" column="83" lean-forward="false" selection-start-line="20" selection-start-column="83" selection-end-line="20" selection-end-column="83" />
           <folding />
         </state>
       </provider>

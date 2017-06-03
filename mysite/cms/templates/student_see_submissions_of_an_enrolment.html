@@ -17,8 +17,8 @@ current_class_of_course,
     {% if sub.document %}
         <a href="{% url 'serve_file_of_submission' sub.pk %}" > {{ sub.document }} </a>
         <br>
-        <a href="{% url 'student_edit_submission' sub.pk %}" > Edit the submission </a>
     {% endif %}
+    <a href="{% url 'student_edit_submission' sub.pk %}" > Edit the submission </a>
     <br>
     <br>
     <br>
