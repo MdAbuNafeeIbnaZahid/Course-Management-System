@@ -79,6 +79,8 @@ error_message,
         <br>
         {{ sw.body }}
         <br>
+        <a href="{% url 'teacher_see_submissions_of_a_window' sw.pk %}" > See all submissions </a>
+        <br>
         <br>
         <br>
     {% endfor %}

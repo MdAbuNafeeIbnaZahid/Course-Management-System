@@ -24,7 +24,8 @@ from cms.views import handle_log_in, handle_log_out, handle_update_profile, hand
     handle_add_new_teacher, admin_set_dept_head, teacher_see_list_of_classes_assigned_to, hod_approve_new_enrol_request, \
     teacher_post_in_class_forum, student_see_class_forum, teacher_see_list_of_students_in_class, teacher_set_mark_of_an_enrolment, \
     student_see_mark_of_an_enrolment, serve_file_of_forum_post, teacher_add_submission_window, \
-    student_see_submissions_of_an_enrolment, serve_file_of_submission, student_edit_submission
+    student_see_submissions_of_an_enrolment, serve_file_of_submission, student_edit_submission, \
+    teacher_see_submissions_of_a_window
 
 urlpatterns = [
 
@@ -83,7 +84,10 @@ url(r'^media/submission/(?P<submission_pk>[0-9]+)/$', serve_file_of_submission, 
         name='teacher_see_list_of_students_in_class'),
     url(r'teacher-set-mark-of-an-enrolment/(?P<enrolment_pk>[0-9]+)/$', teacher_set_mark_of_an_enrolment,
         name='teacher_set_mark_of_an_enrolment'),
-    url(r'teacher-add-submission-window/(?P<enrolment_pk>[0-9]+)/$', teacher_add_submission_window, name='teacher_add_submission_window'),
+    url(r'teacher-add-submission-window/(?P<class_pk>[0-9]+)/$', teacher_add_submission_window, name='teacher_add_submission_window'),
+    url(r'teacher-see-submissions-of-a-window/(?P<submission_window_pk>[0-9]+)/$', teacher_see_submissions_of_a_window,
+        name='teacher_see_submissions_of_a_window'),
+
 
 
 

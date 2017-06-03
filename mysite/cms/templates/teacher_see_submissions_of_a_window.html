@@ -1,0 +1,31 @@
+{% comment %}
+current_submission_window,
+'all_submissions_of_this_window' : all_submissions_of_this_window,
+{% endcomment %}
+
+
+{% include 'includes/teacher_navigation.html' %}
+
+
+<br>
+{{ current_submission_window.class_of_course }}
+<br>
+{{ current_submission_window.headline }}
+<br>
+{{ current_submission_window.body }}
+<br>
+{{ current_submission_window.end_time }}
+<br>
+<br>
+{% for sub in all_submissions_of_this_window %}
+    <br>
+    {{ sub.student.studentId }}
+    {% if sub.document %}
+        <br>
+        <a href="{% url 'serve_file_of_submission' sub.pk %}" > {{ sub.document }} </a>
+        <br>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+{% endfor %}

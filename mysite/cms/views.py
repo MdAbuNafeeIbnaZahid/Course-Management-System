@@ -984,9 +984,10 @@ def teacher_see_submissions_of_a_window(request, submission_window_pk):
         print('current teacher has not opened the submission link')
         return render(request, 'permission_denied.html')
 
-    all_submissions_of_this_window = current_submission_window.submission_set.all()
+    all_submissions_of_this_window = current_submission_window.submission_set.all().order_by('student__studentId')
     context = {
+        'current_submission_window' : current_submission_window,
         'all_submissions_of_this_window' : all_submissions_of_this_window ,
     }
 
-    return render(request, )
+    return render(request, 'teacher_see_submissions_of_a_window.html', context)
