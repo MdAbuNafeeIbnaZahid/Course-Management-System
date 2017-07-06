@@ -256,6 +256,6 @@ class Student_edit_submission_form(forms.ModelForm):
 
 
 class User_change_password_form(forms.Form):
-    old_password = forms.PasswordInput()
-    new_password = forms.PasswordInput()
-    new_password_again = forms.PasswordInput()
+    old_password = forms.CharField(widget=forms.PasswordInput)
+    new_password = forms.CharField(widget=forms.PasswordInput)
+    new_password_again = forms.CharField(widget=forms.PasswordInput)

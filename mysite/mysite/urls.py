@@ -99,8 +99,14 @@ url(r'^media/submission/(?P<submission_pk>[0-9]+)/$', serve_file_of_submission, 
 
 
 
+    ## I think this url is outdated now
     # url(r'^student_profile_update/$', change_profile_student, name='change_profile_student'),
-    
+
+
+
+    # user part
+    url(r'user-change-password', handle_change_password, name='handle_change_password'),
+
 
 
 

@@ -120,16 +120,47 @@ def handle_change_password(request):
 
     # a user is logged in
     user = User.objects.get(username=current_username)
-    user_change_password_form = User
+    user_change_password_form = User_change_password_form()
     if ( request.method != 'POST' ):
         # user just loaded the page, didn't click on change
-        user_change_password_form = User_change_password_form()
+
         context = { 'user_change_password_form' : user_change_password_form }
         return render(request, 'user_change_password.html',  context)
 
 
     # user clicked on the change button
-    return render(request, 'permission_denied.html')
+    old_password = request.POST.get('old_password', None)
+    new_password = request.POST.get('new_password', None)
+    new_password_again = request.POST.get('new_password_again', None)
+
+    if ( user.password != old_password ):
+        context = context = { 'user_change_password_form' : user_change_password_form,
+                              'error_message' : 'old password did NOT match',
+                              }
+        return render(request, 'user_change_password.html', context)
+
+
+    if ( new_password != new_password_again ):
+        context = context = {'user_change_password_form': user_change_password_form,
+                             'error_message': 'new passwords did NOT match',
+                             }
+        return render(request, 'user_change_password.html', context)
+
+    if ( len(new_password) < 3 ):
+        context = context = {'user_change_password_form': user_change_password_form,
+                             'error_message': 'password must be atleast 3 characters',
+                             }
+        return render(request, 'user_change_password.html', context)
+
+
+    # everything is right. password can be changed
+    user.password = new_password
+    user.save()
+    context = {'user_change_password_form': user_change_password_form,
+                             'success_message': 'Password changed successfully',
+                             }
+
+    return render(request, 'user_change_password.html', context)
 
 
 
