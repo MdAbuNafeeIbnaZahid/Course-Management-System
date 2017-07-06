@@ -29,7 +29,7 @@ from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
     student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
     teacher_post_in_class_forum_form, teacher_set_mark_of_an_enrolment_form, student_see_mark_of_an_enrolment_form, \
-    Teacher_add_submission_window_form, Student_edit_submission_form
+    Teacher_add_submission_window_form, Student_edit_submission_form, User_change_password_form
 
 
 
@@ -116,8 +116,22 @@ def handle_change_password(request):
     current_username = request.session.get('username', None)
     if (current_username is None):  # user not logged in
         return render(request, 'login_page.html', {'error': None})
-    else:
-        return render(request, 'user_navigation.html', {'error': None})
+
+
+    # a user is logged in
+    user = User.objects.get(username=current_username)
+    user_change_password_form = User
+    if ( request.method != 'POST' ):
+        # user just loaded the page, didn't click on change
+        user_change_password_form = User_change_password_form()
+        context = { 'user_change_password_form' : user_change_password_form }
+        return render(request, 'user_change_password.html',  context)
+
+
+    # user clicked on the change button
+    return render(request, 'permission_denied.html')
+
+
 
 
 def handle_log_out(request):

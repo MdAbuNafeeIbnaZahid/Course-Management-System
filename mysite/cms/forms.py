@@ -253,3 +253,9 @@ class Student_edit_submission_form(forms.ModelForm):
         super(Student_edit_submission_form, self).__init__(*args, **kwargs)
         self.fields['student'].disabled = True
         self.fields['submission_window'].disabled = True
+
+
+class User_change_password_form(forms.Form):
+    old_password = forms.PasswordInput()
+    new_password = forms.PasswordInput()
+    new_password_again = forms.PasswordInput()
