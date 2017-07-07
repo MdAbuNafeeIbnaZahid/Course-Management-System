@@ -259,3 +259,15 @@ class User_change_password_form(forms.Form):
     old_password = forms.CharField(widget=forms.PasswordInput)
     new_password = forms.CharField(widget=forms.PasswordInput)
     new_password_again = forms.CharField(widget=forms.PasswordInput)
+
+
+class User_update_profile_form(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(User_update_profile_form, self).__init__(*args, **kwargs)
+        self.fields['username'].disabled = True
+        self.fields['password'].disabled = True
+        self.fields['user_type'].disabled = True
