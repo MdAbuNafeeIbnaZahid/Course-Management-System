@@ -264,10 +264,8 @@ class User_change_password_form(forms.Form):
 class User_update_profile_form(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'
+        #fields = '__all__'
+        fields = ['first_name', 'last_name', 'address', 'phone_num', 'email_address']
 
     def __init__(self, *args, **kwargs):
         super(User_update_profile_form, self).__init__(*args, **kwargs)
-        self.fields['username'].disabled = True
-        self.fields['password'].disabled = True
-        self.fields['user_type'].disabled = True

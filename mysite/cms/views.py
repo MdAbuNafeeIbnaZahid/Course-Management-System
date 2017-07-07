@@ -112,10 +112,29 @@ def handle_update_profile(request):
 
     current_user = User.objects.get(username=current_username)
     form = User_update_profile_form(instance=current_user)
-    context = {
-        'user_update_profile_form' : form,
-    }
-    return render(request, 'user_update_profile.html', context )
+
+    if ( request.method != 'POST' ):
+        # user didn't click on the update button
+        context = {
+            'user_update_profile_form' : form,
+            'current_user': current_user,
+        }
+        return render(request, 'user_update_profile.html', context )
+
+
+    # user clicked on the update button
+    submitted_form = User_update_profile_form(request.POST or None, instance=current_user)
+
+    if (submitted_form.is_valid()):
+        submitted_form.save()
+        form = User_update_profile_form(instance=current_user)
+        context = {
+                    'user_update_profile_form': form,
+                    'current_user' : current_user,
+                   }
+        return render(request, 'user_update_profile.html', context)
+
+
 
 
 def handle_change_password(request):
@@ -125,12 +144,14 @@ def handle_change_password(request):
 
 
     # a user is logged in
-    user = User.objects.get(username=current_username)
+    current_user = User.objects.get(username=current_username)
     user_change_password_form = User_change_password_form()
     if ( request.method != 'POST' ):
         # user just loaded the page, didn't click on change
 
-        context = { 'user_change_password_form' : user_change_password_form }
+        context = { 'user_change_password_form' : user_change_password_form,
+                    'current_user': current_user,
+                    }
         return render(request, 'user_change_password.html',  context)
 
 
@@ -139,9 +160,10 @@ def handle_change_password(request):
     new_password = request.POST.get('new_password', None)
     new_password_again = request.POST.get('new_password_again', None)
 
-    if ( user.password != old_password ):
+    if ( current_user.password != old_password ):
         context = context = { 'user_change_password_form' : user_change_password_form,
                               'error_message' : 'old password did NOT match',
+                              'current_user' : current_user,
                               }
         return render(request, 'user_change_password.html', context)
 
@@ -149,21 +171,25 @@ def handle_change_password(request):
     if ( new_password != new_password_again ):
         context = context = {'user_change_password_form': user_change_password_form,
                              'error_message': 'new passwords did NOT match',
+                             'current_user' : current_user,
                              }
         return render(request, 'user_change_password.html', context)
 
     if ( len(new_password) < 3 ):
         context = context = {'user_change_password_form': user_change_password_form,
                              'error_message': 'password must be atleast 3 characters',
+                             'current_user': current_user,
                              }
         return render(request, 'user_change_password.html', context)
 
 
     # everything is right. password can be changed
-    user.password = new_password
-    user.save()
-    context = {'user_change_password_form': user_change_password_form,
-                             'success_message': 'Password changed successfully',
+    current_user.password = new_password
+    current_user.save()
+    context = {
+                'user_change_password_form': user_change_password_form,
+                 'success_message': 'Password changed successfully',
+                'current_user': current_user,
                              }
 
     return render(request, 'user_change_password.html', context)

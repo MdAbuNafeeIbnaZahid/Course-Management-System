@@ -1,11 +1,31 @@
 {% comment %}
 user_change_password_form,
 error_message,
-success_message
+success_message,
+current_user,
 {% endcomment %}
 
 
-{% include 'includes/user_navigation.html' %}
+
+<!--
+for debug purpose
+<h1> WILL print somethings {{ current_user.user_type }}  hello </h1>
+-->
+
+
+
+{% ifequal current_user.user_type "TEACHER" %}
+    {% include 'includes/teacher_navigation.html' %}
+{% endifequal %}
+
+{% ifequal current_user.user_type "STUDENT" %}
+    {% include 'includes/student_navigation.html' %}
+{% endifequal %}
+
+{% ifequal current_user.user_type "ADMIN" %}
+    {% include 'includes/admin_navigation.html' %}
+{% endifequal %}
+
 
 
 {% if error_message %}

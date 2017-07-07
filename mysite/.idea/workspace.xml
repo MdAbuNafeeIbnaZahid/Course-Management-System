@@ -21,8 +21,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="117" column="64" lean-forward="false" selection-start-line="117" selection-start-column="64" selection-end-line="117" selection-end-column="64" />
+            <state relative-caret-position="-7">
+              <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -30,31 +30,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin_homepage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cms/templates/admin_homepage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="admin_navigation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/templates/includes/admin_navigation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="638">
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_update_profile.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user_update_profile.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/templates/user_update_profile.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+            <state relative-caret-position="567">
+              <caret line="27" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,21 +60,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_change_password.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cms/templates/user_change_password.html">
+      <file leaf-file-name="add_new_student.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms/templates/add_new_student.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="40" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+            <state relative-caret-position="552">
+              <caret line="24" column="37" lean-forward="false" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user_change_password.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cms/templates/user_change_password.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cms/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="654">
-              <caret line="273" column="0" lean-forward="true" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
+            <state relative-caret-position="497">
+              <caret line="267" column="8" lean-forward="false" selection-start-line="267" selection-start-column="8" selection-end-line="267" selection-end-column="8" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -92,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin_set_department_head.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cms/templates/admin_set_department_head.html">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.5/dist-packages/django/forms/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-141">
-              <caret line="20" column="27" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+            <state relative-caret-position="264">
+              <caret line="261" column="0" lean-forward="false" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -105,8 +105,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cms/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+            <state relative-caret-position="378">
+              <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="17" />
               <folding>
                 <element signature="e#3120#3206#0" expanded="false" />
               </folding>
@@ -138,7 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>time</find>
       <find>template</find>
       <find>database</find>
       <find>app_dirs</find>
@@ -168,6 +167,7 @@
       <find>add_new</find>
       <find>change</find>
       <find>Student_edit_submission_form</find>
+      <find>text</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -214,16 +214,16 @@
         <option value="$PROJECT_DIR$/cms/templates/student_enrol_in_class.html" />
         <option value="$PROJECT_DIR$/cms/templates/includes/student_navigation.html" />
         <option value="$PROJECT_DIR$/cms/templates/student_edit_submission.html" />
-        <option value="$PROJECT_DIR$/cms/models.py" />
         <option value="$PROJECT_DIR$/cms/templates/teacher_see_submissions_of_a_window.html" />
         <option value="$PROJECT_DIR$/cms/templates/teacher_add_submission_window.html" />
         <option value="$PROJECT_DIR$/cms/templates/student_see_submissions_of_an_enrolment.html" />
-        <option value="$PROJECT_DIR$/cms/templates/user_change_password.html" />
-        <option value="$PROJECT_DIR$/cms/forms.py" />
-        <option value="$PROJECT_DIR$/cms/views.py" />
         <option value="$PROJECT_DIR$/mysite/urls.py" />
         <option value="$PROJECT_DIR$/cms/templates/includes/user_navigation.html" />
         <option value="$PROJECT_DIR$/cms/templates/user_update_profile.html" />
+        <option value="$PROJECT_DIR$/cms/templates/user_change_password.html" />
+        <option value="$PROJECT_DIR$/cms/views.py" />
+        <option value="$PROJECT_DIR$/cms/models.py" />
+        <option value="$PROJECT_DIR$/cms/forms.py" />
       </list>
     </option>
   </component>
@@ -870,14 +870,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.5/dist-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3315">
-          <caret line="239" column="0" lean-forward="false" selection-start-line="239" selection-start-column="0" selection-end-line="239" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cms/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1305">
@@ -992,14 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/add_new_student.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" column="37" lean-forward="false" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/teacher_post_in_class_forum.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -1024,57 +1008,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
-          <folding>
-            <element signature="e#3120#3206#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/user_change_password.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/admin_homepage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/templates/includes/admin_navigation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="654">
-          <caret line="273" column="0" lean-forward="true" selection-start-line="273" selection-start-column="0" selection-end-line="273" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cms/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="117" column="64" lean-forward="false" selection-start-line="117" selection-start-column="64" selection-end-line="117" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,6 +1026,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/add_new_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="24" column="37" lean-forward="false" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/includes/admin_navigation.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/includes/user_navigation.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1098,9 +1052,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cms/templates/user_update_profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="27" column="28" lean-forward="false" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+        <state relative-caret-position="567">
+          <caret line="27" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/templates/user_change_password.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="198" column="0" lean-forward="true" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="17" />
+          <folding>
+            <element signature="e#3120#3206#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.5/dist-packages/django/forms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="261" column="0" lean-forward="false" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cms/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="267" column="8" lean-forward="false" selection-start-line="267" selection-start-column="8" selection-end-line="267" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
