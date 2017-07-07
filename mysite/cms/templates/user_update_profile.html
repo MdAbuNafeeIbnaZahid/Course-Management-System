@@ -1,0 +1,40 @@
+{% comment %}
+user_change_password_form,
+error_message,
+success_message
+{% endcomment %}
+
+
+{% include 'includes/user_navigation.html' %}
+
+
+{% if error_message %}
+    <br>
+    <b> {{ error_message }} </b>
+    <br>
+{% endif %}
+
+{% if success_message %}
+    <br>
+    <b> {{ success_message }} </b>
+    <br>
+{% endif %}
+
+
+
+{% if user_update_profile_form %}
+    <br>
+    <br>
+    <h1> Update your profile </h1>
+    <form method="post" action="">
+    {% csrf_token %}
+    <table>
+    {{ user_update_profile_form }}
+    </table>
+    <input type="submit" value="Update!!"/>
+    </form>
+
+    <br>
+    <br>
+{% endif %}
+

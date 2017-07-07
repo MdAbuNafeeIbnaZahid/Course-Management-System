@@ -29,7 +29,8 @@ from cms.templates import includes
 from cms.forms import Student_profile_form, add_new_student_form, add_new_course_form, add_new_class_of_course_form, \
     student_enrol_in_class_form, add_new_teacher_form, admin_set_dept_head_form, hod_approve_enrolment_form, \
     teacher_post_in_class_forum_form, teacher_set_mark_of_an_enrolment_form, student_see_mark_of_an_enrolment_form, \
-    Teacher_add_submission_window_form, Student_edit_submission_form, User_change_password_form
+    Teacher_add_submission_window_form, Student_edit_submission_form, User_change_password_form, \
+    User_update_profile_form
 
 
 
@@ -107,9 +108,14 @@ def handle_log_in(request, **kwargs):
 def handle_update_profile(request):
     current_username = request.session.get('username', None)
     if (current_username is None): #user not logged in
-        return render(request, 'login_page.html', {'error': None})
-    else:
-        return render(request, 'user_navigation.html', {'error': None})
+        return render(request, 'login_page.html', {'error': None} )
+
+    current_user = User.objects.get(username=current_username)
+    form = User_update_profile_form(instance=current_user)
+    context = {
+        'user_update_profile_form' : form,
+    }
+    return render(request, 'user_update_profile.html', context )
 
 
 def handle_change_password(request):
