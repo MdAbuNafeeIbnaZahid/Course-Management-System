@@ -318,7 +318,7 @@ def handle_add_new_course(request):
     print('user is admin')
 
     # fetch list of all courses
-    all_courses_ordered_by_dept = Course.objects.all().order_by( 'dept' )
+    all_courses_ordered_by_dept = Course.objects.all().order_by( 'dept', 'course_num' )
     print( 'fetched all courses ordered by dept' )
 
 
@@ -374,7 +374,8 @@ def handle_add_new_class_of_course(request):
     # user is admin
     print( 'user is admin' )
 
-    all_classes = Class_of_course.objects.all().order_by( '-year', '-month' )
+    all_classes = Class_of_course.objects.all().order_by( '-year', '-month', 'course_of_class__dept',
+                                                          'course_of_class__course_num')
 
     if ( request.method != 'POST' ) : # user didn't click the add button just now
         form = add_new_class_of_course_form()
